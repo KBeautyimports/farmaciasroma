@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Catálogo Skincare – Farmacias Roma</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf8f3;
+    --rose: #c9847a;
+    --rose-dark: #a8655b;
+    --rose-light: #f0d8d4;
+    --sage: #8fa68e;
+    --sage-light: #dce8db;
+    --charcoal: #2c2c2c;
+    --mid: #6b6b6b;
+    --light: #e8e0d8;
+    --white: #ffffff;
+    --gold: #b89a6e;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(44,44,44,0.10);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--light);
+    padding: 14px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 2px 12px rgba(44,44,44,0.07);
+  }
+  .logo-wrap img {
+    height: 44px;
+    object-fit: contain;
+  }
+  .header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    flex: 1;
+    text-align: center;
+  }
+  .header-title span { display: block; font-size: 0.75rem; font-weight: 300; color: var(--mid); font-family: 'DM Sans', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .hero-quiz-btn {
+    background: var(--rose);
+    color: var(--white);
+    border: none;
+    border-radius: 40px;
+    padding: 14px 32px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    margin-top: 4px;
+    letter-spacing: 0.01em;
+    box-shadow: 0 4px 18px rgba(201,132,122,0.35);
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .hero-quiz-btn:hover { background: var(--rose-dark); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(201,132,122,0.45); }
+  .hero-quiz-btn:active { transform: translateY(0); }
+
+  /* ── HERO BANNER ── */
+  .hero {
+    background: linear-gradient(135deg, #f7ede8 0%, #e8f0e8 100%);
+    padding: 36px 20px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(201,132,122,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--charcoal);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .hero h1 em { font-style: italic; color: var(--rose); }
+  .hero p {
+    font-size: 0.88rem;
+    color: var(--mid);
+    max-width: 340px;
+    margin: 0 auto 22px;
+    line-height: 1.6;
+  }
+  .hero-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .badge {
+    background: var(--white);
+    border: 1px solid var(--light);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    color: var(--mid);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sage); }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    display: flex;
+    background: var(--white);
+    border-bottom: 1px solid var(--light);
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 12px;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 14px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--mid);
+    background: none;
+    border: none;
+    border-bottom: 2.5px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn.active { color: var(--rose); border-bottom-color: var(--rose); }
+
+  /* ── MAIN LAYOUT ── */
+  main { padding: 0; }
+
+  /* ── CATALOG SECTION ── */
+  #catalog-section { padding: 20px 16px; }
+
+  /* ── FILTERS ── */
+  .filters-wrap {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .filters-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .filter-group { margin-bottom: 14px; }
+  .filter-group-label {
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip {
+    padding: 6px 13px;
+    border-radius: 20px;
+    border: 1.5px solid var(--light);
+    font-size: 0.76rem;
+    font-weight: 400;
+    color: var(--mid);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.18s;
+    user-select: none;
+  }
+  .chip:hover { border-color: var(--rose-light); color: var(--rose); }
+  .chip.active { background: var(--rose); color: var(--white); border-color: var(--rose); font-weight: 500; }
+  .chip.active-skin { background: var(--sage); color: var(--white); border-color: var(--sage); font-weight: 500; }
+  .chip.active-concern { background: var(--gold); color: var(--white); border-color: var(--gold); font-weight: 500; }
+  .filter-reset {
+    margin-top: 10px;
+    background: none;
+    border: none;
+    font-size: 0.76rem;
+    color: var(--mid);
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── PRODUCT COUNT ── */
+  .count-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding: 0 2px;
+  }
+  .count-text { font-size: 0.8rem; color: var(--mid); }
+  .sort-select {
+    border: 1px solid var(--light);
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 0.78rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--mid);
+    background: var(--white);
+    cursor: pointer;
+  }
+
+  /* ── PRODUCT GRID ── */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  @media (min-width: 480px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 680px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* ── PRODUCT CARD ── */
+  .product-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(44,44,44,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+  .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(44,44,44,0.14); }
+  .card-img-wrap {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--cream);
+    position: relative;
+  }
+  .card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+  .product-card:hover .card-img-wrap img { transform: scale(1.04); }
+  .card-type-badge {
+    position: absolute;
+    top: 8px; left: 8px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 10px;
+    padding: 3px 9px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--rose-dark);
+  }
+  .card-body { padding: 12px; }
+  .card-brand {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--rose);
+    margin-bottom: 3px;
+  }
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .card-tag {
+    font-size: 0.63rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--sage-light);
+    color: var(--sage);
+    font-weight: 500;
+  }
+  .card-tag.pink { background: var(--rose-light); color: var(--rose-dark); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--mid);
+    display: none;
+  }
+  .empty-state h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 8px; }
+
+  /* ── PRODUCT MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(44,44,44,0.55);
+    z-index: 200;
+    backdrop-filter: blur(3px);
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .modal {
+    background: var(--white);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 480px;
+    overflow: hidden;
+    margin: auto;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-img-wrap {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--cream);
+    position: relative;
+  }
+  .modal-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2;
+    color: var(--charcoal);
+  }
+  .modal-body { padding: 20px 20px 30px; }
+  .modal-brand { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--rose); margin-bottom: 4px; }
+  .modal-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; line-height: 1.2; margin-bottom: 14px; }
+  .modal-section-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin: 16px 0 8px; }
+  .modal-desc { font-size: 0.84rem; line-height: 1.6; color: var(--mid); }
+  .modal-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .modal-chip {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.74rem;
+    font-weight: 500;
+  }
+  .modal-chip.type { background: var(--rose-light); color: var(--rose-dark); }
+  .modal-chip.skin { background: var(--sage-light); color: var(--sage); }
+  .modal-chip.ingredient { background: #f0ece6; color: var(--gold); }
+  .modal-ingredients { font-size: 0.75rem; color: var(--mid); line-height: 1.6; background: var(--cream); border-radius: 10px; padding: 12px; }
+  .modal-ingredients-toggle {
+    background: none;
+    border: none;
+    font-size: 0.75rem;
+    color: var(--rose);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: underline;
+    margin-top: 6px;
+  }
+
+  .quiz-opt.concern-suggested { border-color: #e8d5c4; background: #fdf6f0; }
+  .suggested-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 8px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .reason-tag {
+    display: inline-block;
+    background: var(--sage-light);
+    color: var(--sage);
+    font-size: 0.66rem;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 10px;
+  }
+
+  /* ── QUIZ SECTION ── */
+  #quiz-section { display: none; padding: 20px 16px 40px; }
+  .quiz-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 28px 20px;
+    box-shadow: var(--shadow);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .quiz-header { text-align: center; margin-bottom: 28px; }
+  .quiz-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; margin-bottom: 6px; }
+  .quiz-header p { font-size: 0.83rem; color: var(--mid); line-height: 1.5; }
+  .quiz-step { display: none; }
+  .quiz-step.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+  .step-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+  .step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--light); transition: background 0.2s; }
+  .step-dot.active { background: var(--rose); }
+  .step-dot.done { background: var(--sage); }
+  .quiz-q { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 6px; }
+  .quiz-sub { font-size: 0.8rem; color: var(--mid); margin-bottom: 18px; }
+  .quiz-options { display: grid; gap: 10px; }
+  .quiz-opt {
+    border: 2px solid var(--light);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--cream);
+  }
+  .quiz-opt:hover { border-color: var(--rose-light); background: #fdf2f0; }
+  .quiz-opt.selected { border-color: var(--rose); background: #fdf2f0; }
+  .quiz-opt.selected-skin { border-color: var(--sage); background: #f0f5f0; }
+  .opt-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .opt-text { flex: 1; }
+  .opt-label { font-weight: 500; font-size: 0.9rem; display: block; }
+  .opt-desc { font-size: 0.76rem; color: var(--mid); display: block; margin-top: 2px; }
+  .quiz-multi-note { font-size: 0.74rem; color: var(--mid); text-align: center; margin-top: 8px; }
+
+  /* Sensitive skin toggle on step 1 */
+  .sensitive-toggle {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 2px solid var(--light);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.18s;
+    user-select: none;
+  }
+  .sensitive-toggle:hover { border-color: var(--rose-light); background: #fdf6f4; }
+  .sensitive-toggle.checked { border-color: var(--rose); background: #fdf2f0; }
+  .sensitive-checkbox {
+    width: 24px;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 2px solid var(--light);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    transition: all 0.18s;
+  }
+  .sensitive-toggle.checked .sensitive-checkbox {
+    background: var(--rose);
+    border-color: var(--rose);
+  }
+  .sensitive-toggle-text { flex: 1; }
+  .sensitive-label { display: block; font-size: 0.88rem; font-weight: 500; color: var(--charcoal); }
+  .sensitive-desc { display: block; font-size: 0.74rem; color: var(--mid); margin-top: 2px; }
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; }
+  .quiz-back {
+    background: none;
+    border: none;
+    font-size: 0.83rem;
+    color: var(--mid);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .quiz-next {
+    background: var(--rose);
+    color: var(--white);
+    border: none;
+    border-radius: 40px;
+    padding: 12px 28px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .quiz-next:hover { background: var(--rose-dark); }
+  .quiz-next:disabled { background: var(--light); color: var(--mid); cursor: not-allowed; }
+
+  /* ── QUIZ RESULTS ── */
+  #quiz-results { display: none; padding: 20px 16px 40px; }
+  .results-header { text-align: center; margin-bottom: 20px; }
+  .results-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; margin-bottom: 6px; }
+  .results-header p { font-size: 0.83rem; color: var(--mid); }
+  .results-profile {
+    background: linear-gradient(135deg, #f7ede8, #e8f0e8);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    display: flex; flex-wrap: wrap; gap: 7px;
+  }
+  .profile-tag { background: var(--white); border-radius: 20px; padding: 5px 12px; font-size: 0.76rem; font-weight: 500; color: var(--charcoal); }
+
+  /* Result tabs */
+  .result-tabs {
+    display: flex;
+    background: var(--white);
+    border-radius: 14px;
+    padding: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(44,44,44,0.08);
+    gap: 4px;
+  }
+  .result-tab {
+    flex: 1;
+    padding: 11px 8px;
+    border: none;
+    border-radius: 10px;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--mid);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .result-tab.active {
+    background: var(--rose);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(201,132,122,0.35);
+  }
+  .result-tab .tab-count {
+    display: inline-block;
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 0.7rem;
+    margin-left: 4px;
+  }
+  .result-tab:not(.active) .tab-count {
+    background: var(--light);
+    color: var(--mid);
+  }
+  .result-tab-panel { display: none; }
+  .result-tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
+
+  /* Match tab type filter strip */
+  .match-filter-strip {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+  }
+  .match-filter-strip::-webkit-scrollbar { display: none; }
+  .match-filter-chip {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--light);
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--mid);
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  .match-filter-chip:hover { border-color: var(--rose-light); color: var(--rose); }
+  .match-filter-chip.active { background: var(--rose); color: var(--white); border-color: var(--rose); font-weight: 600; }
+
+  /* Routine slot cards (horizontal layout) */
+  .slot-section { margin-bottom: 18px; }
+  .slot-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 8px; padding: 0 2px; }
+  .slot-card {
+    background: var(--white);
+    border-radius: 14px;
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(44,44,44,0.08);
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .slot-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(44,44,44,0.13); }
+  .slot-card-img { width: 96px; min-width: 96px; background: var(--cream); overflow: hidden; }
+  .slot-card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .slot-card-body { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+  /* Matching products grid */
+  .match-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+  @media (min-width: 480px) { .match-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 680px) { .match-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .results-actions { margin-top: 24px; }
+  .retake-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: 2px solid var(--rose);
+    color: var(--rose);
+    border-radius: 40px;
+    padding: 13px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: all 0.2s;
+  }
+  .retake-btn:hover { background: var(--rose); color: var(--white); }
+  .browse-all-btn {
+    display: block;
+    width: 100%;
+    background: var(--charcoal);
+    border: none;
+    color: var(--white);
+    border-radius: 40px;
+    padding: 13px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .browse-all-btn:hover { background: #444; }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--light);
+    display: flex;
+    padding: 8px 0 env(safe-area-inset-bottom, 8px);
+    z-index: 99;
+    box-shadow: 0 -4px 20px rgba(44,44,44,0.08);
+  }
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 0;
+    cursor: pointer;
+    font-size: 0.66rem;
+    color: var(--mid);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-item.active { color: var(--rose); }
+  .nav-icon { font-size: 1.35rem; }
+  .main-content { padding-bottom: 80px; }
+
+  /* image fallback */
+  img.broken { display: none; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <img src="https://farmaciasroma.com/wp-content/uploads/2025/06/Logotipo-Farmacias-Roma-2025-1536x903.png" alt="Farmacias Roma" onerror="this.style.display='none'">
+  </div>
+  <div class="header-title">
+    Skincare Coreano
+    <span>Catálogo 2026</span>
+  </div>
+</header>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-item active" id="nav-catalog" onclick="switchView('catalog')">
+    <span class="nav-icon">🛍️</span>Catálogo
+  </button>
+  <button class="nav-item" id="nav-quiz" onclick="showQuiz()">
+    <span class="nav-icon">✨</span>Mi Rutina
+  </button>
+  <button class="nav-item" id="nav-brands" onclick="switchView('brands')">
+    <span class="nav-icon">🏷️</span>Marcas
+  </button>
+</div>
+
+<div class="main-content">
+
+<!-- HERO -->
+<div class="hero" id="hero-section">
+  <h1>Tu rutina de<br><em>skincare coreano</em><br>ideal</h1>
+  <p>Descubre nuestros productos K-Beauty cuidadosamente seleccionados para cada tipo de piel.</p>
+  <button class="hero-quiz-btn" onclick="showQuiz()">✨ Encuentra tu rutina ideal</button>
+</div>
+
+<!-- CATALOG SECTION -->
+<div id="catalog-section">
+  <div class="filters-wrap">
+    <div class="filters-title">🔍 Filtrar productos</div>
+    
+    <div class="filter-group">
+      <div class="filter-group-label">Tipo de Producto</div>
+      <div class="chips" id="type-chips">
+        <div class="chip" onclick="toggleFilter('type','Crema')">Crema</div>
+        <div class="chip" onclick="toggleFilter('type','Sérum/Ampolla')">Sérum/Ampolla</div>
+        <div class="chip" onclick="toggleFilter('type','Limpiador')">Limpiador</div>
+        <div class="chip" onclick="toggleFilter('type','Protector Solar')">Protector Solar</div>
+        <div class="chip" onclick="toggleFilter('type','Tónico/Esencia')">Tónico/Esencia</div>
+        <div class="chip" onclick="toggleFilter('type','Mascarilla')">Mascarilla</div>
+        <div class="chip" onclick="toggleFilter('type','Aceite Limpiador')">Aceite Limpiador</div>
+        <div class="chip" onclick="toggleFilter('type','Contorno de Ojos')">Contorno de Ojos</div>
+        <div class="chip" onclick="toggleFilter('type','Bruma')">Bruma</div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-group-label">Tipo de Piel</div>
+      <div class="chips" id="skin-chips">
+        <div class="chip" onclick="toggleFilter('skin','Piel Seca')">Piel Seca</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel Grasa')">Piel Grasa</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel Mixta')">Piel Mixta</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel Sensible')">Piel Sensible</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel Normal')">Piel Normal</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel con Acné')">Piel con Acné</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel Madura')">Piel Madura</div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-group-label">Preocupación</div>
+      <div class="chips" id="concern-chips">
+        <div class="chip" onclick="toggleFilter('concern','acne')">🎯 Acné</div>
+        <div class="chip" onclick="toggleFilter('concern','manchas')">☀️ Manchas</div>
+        <div class="chip" onclick="toggleFilter('concern','arrugas')">⏳ Arrugas</div>
+        <div class="chip" onclick="toggleFilter('concern','hidratacion')">💧 Hidratación</div>
+        <div class="chip" onclick="toggleFilter('concern','poros')">🔍 Poros</div>
+        <div class="chip" onclick="toggleFilter('concern','rojeces')">🌿 Rojeces</div>
+        <div class="chip" onclick="toggleFilter('concern','brillo')">✨ Falta de Brillo</div>
+        <div class="chip" onclick="toggleFilter('concern','barrera')">🛡️ Barrera Cutánea</div>
+        <div class="chip" onclick="toggleFilter('concern','ojeras')">👁️ Ojeras / Ojos</div>
+        <div class="chip" onclick="toggleFilter('concern','sol')">🌞 Protección Solar</div>
+      </div>
+    </div>
+    <button class="filter-reset" onclick="resetFilters()">Limpiar filtros</button>
+  </div>
+
+  <div class="count-bar">
+    <div class="count-text" id="count-text">41 productos</div>
+  </div>
+
+  <div class="product-grid" id="product-grid"></div>
+  <div class="empty-state" id="empty-state">
+    <h3>Sin resultados 🌸</h3>
+    <p>Prueba con otros filtros</p>
+    <button class="filter-reset" style="margin-top:12px;font-size:0.84rem;" onclick="resetFilters()">Ver todos los productos</button>
+  </div>
+</div>
+
+<!-- BRANDS SECTION -->
+<div id="brands-section" style="display:none;padding:20px 16px 40px;">
+  <div style="margin-bottom:20px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:6px;">Nuestras Marcas</h2>
+    <p style="font-size:0.83rem;color:var(--mid);">Selecciona una marca para ver sus productos</p>
+  </div>
+  <div id="brands-grid" style="display:grid;gap:14px;"></div>
+</div>
+
+<!-- QUIZ SECTION -->
+<div id="quiz-section">
+  <div class="quiz-card">
+    <div class="quiz-header">
+      <div style="font-size:2rem;margin-bottom:10px;">🌿</div>
+      <h2>Test de Piel</h2>
+      <p>3 preguntas rápidas para encontrar los productos perfectos para ti.</p>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step-dot active" id="dot-0"></div>
+      <div class="step-dot" id="dot-1"></div>
+      <div class="step-dot" id="dot-2"></div>
+    </div>
+    <div style="text-align:center;font-size:0.72rem;color:var(--mid);margin-bottom:18px;" id="step-label">Paso 1 de 3</div>
+
+    <!-- STEP 1: SKIN TYPE -->
+    <div class="quiz-step active" id="step-0">
+      <div class="quiz-q">¿Cómo describirías tu piel?</div>
+      <div class="quiz-sub">Elige tu tipo base de piel</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="selectSkinType('Piel Seca', this)">
+          <span class="opt-icon">🏜️</span>
+          <span class="opt-text">
+            <span class="opt-label">Piel Seca</span>
+            <span class="opt-desc">Se siente tirante, áspera o con descamación. Le cuesta retener la humedad.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectSkinType('Piel Grasa', this)">
+          <span class="opt-icon">💦</span>
+          <span class="opt-text">
+            <span class="opt-label">Piel Grasa</span>
+            <span class="opt-desc">Brillo constante, poros visibles, tendencia a granitos e imperfecciones.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectSkinType('Piel Mixta', this)">
+          <span class="opt-icon">⚖️</span>
+          <span class="opt-text">
+            <span class="opt-label">Piel Mixta</span>
+            <span class="opt-desc">Zona T (frente, nariz, barbilla) grasa; mejillas normales o secas.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectSkinType('Piel Normal', this)">
+          <span class="opt-icon">🌤️</span>
+          <span class="opt-text">
+            <span class="opt-label">Piel Normal</span>
+            <span class="opt-desc">Equilibrada, sin exceso de grasa ni sequedad. Pocas molestias.</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Sensitive toggle -->
+      <div class="sensitive-toggle" id="sensitive-toggle" onclick="toggleSensitive()">
+        <div class="sensitive-checkbox" id="sensitive-checkbox">
+          <span id="sensitive-check-icon"></span>
+        </div>
+        <div class="sensitive-toggle-text">
+          <span class="sensitive-label">Mi piel también es sensible o reactiva</span>
+          <span class="sensitive-desc">Se irrita con facilidad ante nuevos productos o factores externos</span>
+        </div>
+      </div>
+
+      <div class="quiz-nav">
+        <span></span>
+        <button class="quiz-next" id="next-0" disabled onclick="goStep(1)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: CONCERNS (rendered dynamically based on skin type) -->
+    <div class="quiz-step" id="step-1">
+      <div class="quiz-q">¿Qué quieres mejorar en tu piel?</div>
+      <div class="quiz-sub">Puedes elegir hasta 3 opciones</div>
+      <div class="quiz-options" id="concerns-options"></div>
+      <div class="quiz-multi-note">Las más relevantes para tu tipo de piel aparecen primero</div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="goStep(0)">← Atrás</button>
+        <button class="quiz-next" id="next-1" disabled onclick="goStep(2)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: ROUTINE LEVEL -->
+    <div class="quiz-step" id="step-2">
+      <div class="quiz-q">¿Cómo es tu rutina de cuidado?</div>
+      <div class="quiz-sub">Esto nos ayuda a sugerirte los pasos adecuados</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="selectRoutine('basica', this)">
+          <span class="opt-icon">🌱</span>
+          <span class="opt-text">
+            <span class="opt-label">Básica</span>
+            <span class="opt-desc">Limpiador + hidratante. Quiero algo sencillo y efectivo.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectRoutine('intermedia', this)">
+          <span class="opt-icon">🌿</span>
+          <span class="opt-text">
+            <span class="opt-label">Intermedia</span>
+            <span class="opt-desc">Ya uso varios productos y quiero incorporar tratamientos específicos.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectRoutine('completa', this)">
+          <span class="opt-icon">🌳</span>
+          <span class="opt-text">
+            <span class="opt-label">Completa</span>
+            <span class="opt-desc">Me gusta el skincare en capas: tónico, sérum, crema y protector solar.</span>
+          </span>
+        </div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="goStep(1)">← Atrás</button>
+        <button class="quiz-next" id="next-2" disabled onclick="showResults()">Ver mis productos →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS SECTION -->
+<div id="quiz-results">
+  <div class="results-header">
+    <div style="font-size:2rem;margin-bottom:8px;">🎯</div>
+    <h2>Tu resultado</h2>
+    <p id="results-subtitle">Basado en tu tipo de piel y preocupaciones</p>
+  </div>
+  <div class="results-profile" id="results-profile"></div>
+
+  <!-- Tabs -->
+  <div class="result-tabs">
+    <button class="result-tab active" id="tab-routine" onclick="switchResultTab('routine')">
+      🌿 Tu Rutina<span class="tab-count" id="routine-count">0</span>
+    </button>
+    <button class="result-tab" id="tab-matches" onclick="switchResultTab('matches')">
+      🛍️ Todos los productos<span class="tab-count" id="matches-count">0</span>
+    </button>
+  </div>
+
+  <!-- Tab: Routine -->
+  <div class="result-tab-panel active" id="panel-routine">
+    <div id="results-sections"></div>
+  </div>
+
+  <!-- Tab: All matching products -->
+  <div class="result-tab-panel" id="panel-matches">
+    <div style="font-size:0.78rem;color:var(--mid);margin-bottom:12px;line-height:1.5;" id="matches-desc"></div>
+    <!-- Type filter strip -->
+    <div class="match-filter-strip" id="match-type-filter">
+      <button class="match-filter-chip active" data-type="all" onclick="filterMatchGrid('all')">Todos</button>
+      <button class="match-filter-chip" data-type="Limpiador" onclick="filterMatchGrid('Limpiador')">Limpiador</button>
+      <button class="match-filter-chip" data-type="Tónico/Esencia" onclick="filterMatchGrid('Tónico/Esencia')">Tónico</button>
+      <button class="match-filter-chip" data-type="Sérum/Ampolla" onclick="filterMatchGrid('Sérum/Ampolla')">Sérum</button>
+      <button class="match-filter-chip" data-type="Crema" onclick="filterMatchGrid('Crema')">Crema</button>
+      <button class="match-filter-chip" data-type="Protector Solar" onclick="filterMatchGrid('Protector Solar')">Protector Solar</button>
+      <button class="match-filter-chip" data-type="Mascarilla" onclick="filterMatchGrid('Mascarilla')">Mascarilla</button>
+      <button class="match-filter-chip" data-type="Contorno de Ojos" onclick="filterMatchGrid('Contorno de Ojos')">Ojos</button>
+      <button class="match-filter-chip" data-type="Aceite Limpiador" onclick="filterMatchGrid('Aceite Limpiador')">Aceite</button>
+    </div>
+    <div class="match-grid" id="results-match-grid"></div>
+    <div id="match-empty" style="display:none;text-align:center;padding:30px 0;color:var(--mid);font-size:0.85rem;">No hay productos de este tipo entre tus resultados.</div>
+  </div>
+
+  <div class="results-actions">
+    <button class="retake-btn" onclick="retakeQuiz()">↺ Volver a hacer el test</button>
+    <button class="browse-all-btn" onclick="switchView('catalog'); resetFilters();">Ver catálogo completo</button>
+  </div>
+</div>
+
+</div><!-- /main-content -->
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-img-wrap" style="position:relative;">
+      <img id="modal-img" src="" alt="">
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-brand" id="modal-brand"></div>
+      <div class="modal-name" id="modal-name"></div>
+      
+      <div class="modal-section-title">Tipo de Producto</div>
+      <div class="modal-chips" id="modal-types"></div>
+      
+      <div class="modal-section-title">Tipo de Piel</div>
+      <div class="modal-chips" id="modal-skins"></div>
+      
+      <div class="modal-section-title">Ingredientes Activos</div>
+      <div class="modal-chips" id="modal-ingredients"></div>
+
+      <div class="modal-section-title">Descripción</div>
+      <div class="modal-desc" id="modal-desc"></div>
+
+      <div class="modal-section-title">Ingredientes completos</div>
+      <div id="modal-ing-wrap" style="display:none;">
+        <div class="modal-ingredients" id="modal-ing-full"></div>
+      </div>
+      <button class="modal-ingredients-toggle" id="modal-ing-btn" onclick="toggleIngredients()">Ver ingredientes completos ▼</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PRODUCTS = [{"brand":"Dr. Althea","name":"Crema de alivio 345 Relief Cream","description":"Qué es: Clínicamente probado como no comedogénico, 345 Relief Cream (Ver.2) es seguro y suave para la piel propensa al acné, lo que lo hace ideal para el uso diario en su rutina de cuidado del acné.   Es una crema en gel vegana en forma de ungüento regenerador rico en nutrientes, formulada para tratar las imperfecciones, nutrir la piel y brindar un cuidado calmante para una solución completa para el cuidado de la piel.  Beneficios: - Cuidado ligero post-acné - Alivio diario y cuidado calmante - No comedogénico Probado  Efectos: Clínicamente probada para piel sensible, la fórmula contiene niacinamida para aclarar la opacidad y ceramida NP para brindar una hidratación duradera en las capas profundas de la piel.","ingredients":"Aqua (Agua), Agua de Hoja de Melaleuca Alternifolia (Árbol de Té), Propanodiol, Glicerina, 1,2-Hexanodiol, Polideceno Hidrogenado, Vinil Dimeticona, Alcoholes C14-22, Niacinamida, Triglicérido Caprílico/Cáprico, Pantenol, Carbonato de Dicaprililo, Butilenglicol, Copolímero de Acriloildimetiltaurato de Amonio/VP, Caprilil Meticona, Polimetilsilsesquioxano, Alquil Glucósido C12-20, Hidroxiacetofenona, Polímero Cruzado de Acrilatos/Acrilato de Alquilo C10-30, Policuaternio-51, Etilhexilglicerina, Trometamina, Hialuronato de Sodio, Estearoil Glutamato de Sodio, Extracto de Raíz de Coptis Japonica, Agua de Hoja de Centella Asiática, Beta-Glucano, Resveratrol, Ácido Hialurónico Hidrolizado. Agua de hoja de Camellia Sinensis, tocoferol, madecasósido, ADN sódico, extracto de Centella asiática, ceramida NP, ácido tánico, EDTA disódico, fitato de sodio","image":"https://m.media-amazon.com/images/I/51n7tf8UUiL._SX679_.jpg","types":["Crema"],"skinTypes":["Piel Seca","Piel Sensible","Piel con Acné"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Ceramidas","Centella Asiática","Pantenol (B5)","Resveratrol","PDRN / ADN Sódico"]},{"brand":"Dr. Althea","name":"Crema barrera 147 Barrier Cream","description":"Qué es: 147 Barrier Cream es un humectante profundamente hidratante diseñado para fortalecer la barrera de la piel y brindar hidratación duradera.  Está formulado con 1 ingrediente que refuerza la barrera, 4 ingredientes nutritivos y 7 tipos de ácido hialurónico.  Beneficios: - Fortalece la barrera cutánea - Hidratación profunda y nutrición para piel seca - Acabado sedoso sin residuos  Efectos: El complejo de ácido hialurónico de siete capas de la crema proporciona una hidratación eficaz en las diferentes capas de la piel, lo que ayuda a rellenarla y favorece el cuidado antienvejecimiento.","ingredients":"Agua, glicerina, dipropilenglicol, alcohol cetearílico, triglicérido caprílico/cáprico, polideceno hidrogenado, metil trimeticona, 1,2-hexanodiol, fenil trimeticona, aceite vegetal, polímero cruzado de dimeticona/vinil dimeticona, estearato de glicerilo SE, olivato de cetearilo, ácido palmítico, olivato de sorbitán, alcoholes C12-16, alcohol behenílico, ácido esteárico, lecitina hidrogenada, celulosa microcristalina, glucósido de cetearilo, butilenglicol, etilhexilglicerina, miristato de poliglicerilo-10, copolímero de acriloildimetiltaurato de amonio/VP, polimetacrilato de glicerilo, goma de celulosa, ceramida NP, colesterol, extracto de raíz de Coptis Japonica, EDTA disódico, extracto de hoja de Brassica oleracea acephala, Persea Extracto de fruta de Gratissima (aguacate), extracto de hoja de Artemisia Princeps, estearato de glicerilo, metilpropanodiol, maltodextrina, extracto hidrolizado de Gardenia Florida, ceramida AS, ceramida AP, guaiazuleno, arginina, carbómero, ceramida NG, ceramida NS, tocoferol, hialuronato de sodio hidrolizado, ácido hialurónico hidrolizado, hialuronato de dimetilsilanol, extracto de flor de Paeonia Albiflora, hialuronato de potasio, ácido hialurónico, hialuronato de sodio, polímero cruzado de hialuronato de sodio, hialuronato de hidroxipropiltrimonio, hialuronato de sodio dimetilsilanol, hialuronato de sodio acetilado, ceramida EOP","image":"https://m.media-amazon.com/images/I/61+g5lBh5PL._SX679_.jpg","types":["Crema"],"skinTypes":["Piel Seca","Piel Madura"],"activeIngredients":["Ácido Hialurónico","Ceramidas"]},{"brand":"Dr. Althea","name":"345 Crema de alivio en bruma","description":"Qué es: Formulada con ácido hialurónico, esta bruma ultrafina repone instantáneamente la piel seca con una hidratación profunda, ayudando a mantener una hidratación duradera con comodidad durante todo el día.  Contiene una exclusiva capa 2 en 1 de crema y esencia de agua para brindar una nutrición rica y una hidratación refrescante para una piel perfectamente equilibrada.  Beneficios: - Aplicación ultrafina y suave - Hidratación profunda con extracto de arroz - Cuidado calmante para pieles sensibles  Efectos: Enriquecida con extracto de hoja de Centella Asiática y Pantenol, esta suave bruma ayuda a calmar y aliviar la irritación de la piel mientras fortalece la barrera natural de la piel.","ingredients":"Agua de salvado de Oryza sativa (arroz), 1,2-hexanodiol, trietilhexanoína, glicerina, poli(olefina C6-14) hidrogenada, tocoferol, agua, butilenglicol, metilpropanodiol, pentilenglicol, fermento de Streptococcus thermophilus, zumo de Pyrus malus (manzana), pantenol, ácido hialurónico hidrolizado, policuaternio-51, betaína, fosfato de trilaurato-4, extracto de Cynanchum atratum, extracto de flor de Althaea rosea, extracto de Oryza sativa (arroz), sal marina, fermento de Aspergillus, fitato de sodio, ácido cítrico, madecasósido, hialuronato de hidroxipropiltrimonio, extracto de hoja de Centella asiática, extracto de Houttuynia cordata, agua de hoja de Aloe barbadensis, extracto de fermento de Bifida, ácido hialurónico, silanetriol, grano de Avena sativa (avena). Extracto, fermento de Lactobacillus, proteína de arroz hidrolizada, aminoácidos de arroz","image":"https://m.media-amazon.com/images/I/515sJ0GpVAL._SX679_.jpg","types":["Crema","Bruma"],"skinTypes":["Piel Seca","Piel Sensible"],"activeIngredients":["Ácido Hialurónico","Centella Asiática","Pantenol (B5)","Probióticos/Fermentos"]},{"brand":"Dr. Althea","name":"Suero potenciador de vitamina C","description":"Qué es: El suero potenciador de vitamina C del Dr. Althea ayuda a disminuir las manchas oscuras del rostro con niacinamida y alfa arbutina.  Formulado sin colorantes ni aromas artificiales, ofrece una experiencia suave y agradable para la piel, libre de aditivos sintéticos.  Beneficios: - Fuerte efecto iluminador - Cuidado de manchas oscuras y tono de piel uniforme - Colorantes y aromas no artificiales  Efectos: Con 63% de agua de Hippophae Rhamnoides, 5% de niacinamida y 2% de ácido tranexámico, ayuda a reducir la opacidad y las manchas oscuras para una tez más luminosa y de tono más uniforme.","ingredients":"Agua de Hippophae Rhamnoides, agua de hoja de Centella Asiática, niacinamida, butilenglicol, 1,2-hexanodiol, dipropilenglicol, agua, metil gluceth-20, metilpropanodiol, betaína, ácido tranexámico, glicerina, pentilenglicol, propanodiol, hidroxietil urea, extracto de Laminaria Japonica, extracto de hoja de Eclipta Prostrata, extracto de fruto de Ficus Carica (higo), extracto de Centella Asiática, lecitina hidrogenada, hialuronato de sodio, carbómero, ácido 3-O-etil ascórbico, C12-14 Pareth-12, copolímero de acriloildimetiltaurato de amonio/VP, goma xantana, trometamina, pantenol, etilhexilglicerina, adenosina, EDTA disódico, fructooligosacáridos, beta-glucano, ácido ascórbico hidrolizado. Ácido hialurónico, ceramida NP, alfa-arbutina, tocoferol, lisado de fermento bífido, bisabolol, ubiquinona, hidroxidecil ubiquinona, hialuronato de sodio acetilado.","image":"https://m.media-amazon.com/images/I/61vebmqaijL._SX679_.jpg","types":["Sérum/Ampolla"],"skinTypes":[],"activeIngredients":["Niacinamida","Ácido Hialurónico","Vitamina C","Ceramidas","Ácido Tranexámico","Alfa-Arbutina","Centella Asiática","Pantenol (B5)","Adenosina","Probióticos/Fermentos"]},{"brand":"Dr. Althea","name":"Bálsamo limpiador \"Pure Grinding\"","description":"Qué es:  Formulado con solo 14 ingredientes naturales esenciales, ofrece una experiencia de limpieza suave para pieles sensibles.  Una fórmula enriquecida con Madecassoside y aceites vegetales que limpia dejando la piel suave e hidratada.  Beneficios: - Limpieza profunda con burbujas finas - Espuma limpiadora ligeramente ácida - Clínicamente probado para piel sensible  Efectos: Elimina sin esfuerzo el protector solar, el maquillaje e incluso los productos a prueba de agua con solo una pequeña cantidad.","ingredients":"Cetil etilhexanoato, cera sintética, triglicérido caprílico/cáprico, sesquioleato de sorbitán, isoestearato de PEG-10, triisoestearato de glicerilo PEG-20, caprilil glicol, etilhexilglicerina, aceite de semilla de Camellia sinensis, aceite de semilla de Vitis vinifera (uva), madecasósido, extracto de Centella asiática, asiaticósido, agua.","image":"https://m.media-amazon.com/images/I/5199lF2pz6L._SX679_.jpg","types":["Limpiador"],"skinTypes":["Piel Sensible"],"activeIngredients":["Centella Asiática"]},{"brand":"Dr. Althea","name":"Crema acuosa Aqua Marine","description":"Qué es: Una crema facial vegana ligera, con textura acuosa, que se absorbe rápidamente, perfecta para el uso diario.  Diseñado en un envase de tubo, te permite tomar sólo la cantidad que necesitas manteniendo la higiene.  Beneficios: - Hidratación profunda de larga duración - Barrera de humedad y cuidado calmante - Textura ligera y acuosa  Efectos: Formulado con 70% de agua de Bambusa Vulgaris (bambú) para una hidratación profunda, enriquecido con 10,000 ppm de pantenol para aumentar la hidratación de larga duración.","ingredients":"Agua de Bambusa Vulgaris, 1,2-hexanodiol, propanodiol, agua, glicerina, polideceno hidrogenado, alcoholes C14-22, glucósido de alquilo C12-20, triglicérido caprílico/cáprico, extracto de Codium Fragile, extracto de Palmaria Palmata, extracto de Chondrus Crispus, extracto de Sargassum Pallidum, butilenglicol, ácido hialurónico, ácido hialurónico hidrolizado, hialuronato de sodio, pantenol, vinil dimeticona, alcohol cetílico, carbómero, trometamina, ADN sódico, lecitina hidrogenada, dextrina, extracto de fruto de Gardenia Florida, ácido poliglutámico, hialuronato de sodio hidrolizado, hialuronato de hidroxipropiltrimonio, hialuronato de potasio, polímero cruzado de hialuronato de sodio, pentilenglicol, hialuronato de sodio acetilado, guaiazuleno, hoja de agave tequilana. Extracto, hialuronato de retinol sódico, hialuronato hidrolizado de zinc, hialuronato de dimetilsilanol, benzoato de sodio, hialuronato de ascorbilo propilado, hialuronato de ascorbilo propilado, extracto de Caulerpa lentillifera, etilhexilglicerina, EDTA disódico.","image":"https://m.media-amazon.com/images/I/41mJmhz20XL._SX679_.jpg","types":["Crema"],"skinTypes":["Piel Seca"],"activeIngredients":["Ácido Hialurónico","Vitamina C","Retinol/Bakuchiol","Pantenol (B5)","PDRN / ADN Sódico","Ácido Poliglutámico"]},{"brand":"Dr. Althea","name":"\"Premium Quick Step\" Limpiador de sebo ","description":"Qué es: Premium Quick Step Sebum Cleanser es un limpiador suave que elimina el exceso de sebo y limpia profundamente los poros.   Es un tipo de líquido humectante que se puede absorber bien en la piel y afloja eficazmente el sebo de los poros de la piel, dejándola limpia y fresca.  Beneficios: - Limpiador suave y profundo - Cuidado del sebo y los poros - Extracto complejo derivado de plantas  Efectos: Es un limpiador suave de tipo líquido que extrae el sebo profundamente incrustado.  En lugar de irritar físicamente la zona, su fórmula a base de agua satura la zona sebácea, lo que limpia la piel sin irritarla.","ingredients":"Agua, glicerina, 1,2-hexanodiol, butilenglicol, fenoxietanol, extracto de raíz de Arctium Lappa, extracto de flor de Chrysanthemum Sinense, extracto de raíz de Codonopsis Lanceolata, extracto de fruto de Hovenia Dulcis, extracto de rama/flor/hoja de Magnolia Kobus, extracto de corteza de Salix Alba (sauce), extracto de fruto de Schisandra Chinensis, extracto de Hamamelis Virginiana (hamamelis), isoestearato de poligliceril-10, lecitina hidrogenada, aceite de ricino hidrogenado PEG-40, hidróxido de potasio, oleato de poligliceril-10, extracto de Mentha Piperita (menta), fitoesteroles, extracto de fruto de Illicium Verum (anís), aceite de hoja de Eucalyptus Globulus, gluconato de sodio, aceite de Mentha Piperita (menta), pantenol, raíz de Scutellaria Baicalensis Extracto, extracto de Ascophyllum Nodosum, glicirrizato dipotásico, extracto de flor/hoja/tallo de Epilobium Angustifolium, extracto de Portulaca Oleracea, extracto de semilla de Phaseolus Radiatus, extracto de Enteromorpha Compressa, extracto de Gelidium Cartilagineum, extracto de Undaria Pinnatifida, extracto de Laminaria Japonica, extracto de pulpa de Adansonia Digitata, extracto de Saussurea Involucrata","image":"https://m.media-amazon.com/images/I/51vqYJN26xL._AC_SX679_.jpg","types":["Limpiador"],"skinTypes":["Piel Grasa"],"activeIngredients":["Pantenol (B5)"]},{"brand":"AXIS-Y","name":"Dark Spot correcting Glow Serum","description":"Una solución clínicamente formulada para manchas oscuras y piel opaca y desigual.  Esta fórmula multifuncional está clínicamente diseñada para mejorar visiblemente la apariencia de las manchas oscuras y el tono desigual, a la vez que es lo suficientemente suave para el uso diario. Enriquecida con un 5 % de niacinamida , escualano de origen vegetal y una mezcla cuidadosamente seleccionada de extractos botánicos iluminadores, favorece la claridad de la piel a la vez que ayuda a mantener una barrera de hidratación saludable.","ingredients":"Agua, glicerina, niacinamida, hialuronato de sodio, propanodiol, eritritol, butilenglicol, escualano, extracto de salvado de Oryza sativa (arroz), extracto de flor de Calendula officinalis, extracto de fruto de Carica papaya (papaya), extracto de fruto de Hippophae rhamnoides, extracto de fruto de Malpighia glabra (acerola), laurato de poligliceril-10, clorfenesina, arginina, etilhexilglicerina, carbómero, glutatión, 1,2-hexanodiol, hidroxipropil ciclodextrina, EDTA disódico, hidroxietilcelulosa, alantoína, aceite de hoja de Rosmarinus officinalis (romero).","image":"https://axis-y.com.mx/cdn/shop/files/Screenshot_2026-02-25_190928.png?v=1772068232&width=533","types":["Sérum/Ampolla"],"skinTypes":[],"activeIngredients":["Niacinamida","Ácido Hialurónico","Escualano","Glutatión"]},{"brand":"AXIS-Y","name":"Suero vegano de colágeno para ojos","description":"El sérum de colágeno vegano para ojos AXIS-Y, formulado con colágeno vegano, combate las arrugas y la pérdida de elasticidad causada por la sequedad. Enriquecido con 5 tipos de péptidos, 3 extractos de frutas ricos en vitamina C y ácido hialurónico, hidrata intensamente la delicada zona de los ojos, nutriendo e iluminando la piel.","ingredients":"Agua, metilpropanodiol, glicerina, 1,2-hexanodiol, niacinamida, adenosina, colágeno (450 ppm), hialuronato de sodio, ácido hialurónico hidrolizado, hialuronato de sodio acetilado, tripéptido-1, palmitoil pentapéptido-4, hexapéptido-9, acetil hexapéptido-8, tripéptido de cobre-1, extracto de fruta de Pyrus Malus (manzana), extracto de fruta de Prunus Mume, extracto de fruta de Vitis Vinifera (uva), aceite de semilla de Helianthus Annuus (girasol), aceite de semilla de Simmondsia Chinensis (jojoba), aceite de semilla de Limnanthes Alba (hierba de la pradera), extracto de fruta de Carica Papaya (papaya), extracto de Centella Asiática, extracto de fruta de Ficus Carica (higo), extracto de raíz de Ulmus Davidiana, extracto de semilla de Amaranthus Caudatus, ceramida NP.","image":"https://axis-y.com.mx/cdn/shop/files/Vegan_Collagen_Eye_Serum_1.jpg?v=1772068448&width=533","types":["Sérum/Ampolla","Contorno de Ojos"],"skinTypes":["Piel Seca","Piel Sensible","Piel Madura"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Ceramidas","Péptidos","Centella Asiática","Adenosina","Probióticos/Fermentos"]},{"brand":"AXIS-Y","name":"Protector solar físico completo sin estrés V.3","description":"Un protector solar mineral no graso y sin capa blanca, diseñado para pieles sensibles. Este protector solar de amplio espectro FPS 50 PA++++ utiliza óxido de zinc no nanométrico para proteger tu piel de los rayos UVA y UVB, sin dejar una capa blanca, sin sensación grasosa y con un acabado hidratante.","ingredients":"Agua, óxido de zinc, ciclohexasiloxano, dipropilenglicol, salicilato de butiloctilo, propanodiol, isododecano, niacinamida, difenilsiloxifenil trimeticona, caprilil meticona, extracto de flor de Calendula Officinalis, extracto de hoja de Camellia Sinensis, extracto de flor de Artemisia Capillaris, hialuronato de sodio, adenosina, palmitoil tripéptido-5, escualano, tocoferol, alantoína, glicerina.","image":"https://axis-y.com.mx/cdn/shop/files/Screenshot2025-11-15162159.png?v=1763252528&width=533","types":["Protector Solar"],"skinTypes":["Piel Sensible"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Péptidos","Escualano","AHA/BHA","Zinc (Óxido)","Adenosina"]},{"brand":"AXIS-Y","name":"Crema iluminadora intensiva TXA 2.5%","description":"Una fórmula suave pero eficaz diseñada para combatir la opacidad y el tono desigual de la piel. Enriquecida con un 2,5 % de ácido tranexámico, un 2,5 % de niacinamida y glutatión, esta crema nutritiva actúa para atenuar visiblemente las manchas oscuras, refinar el tono y restaurar la luminosidad.","ingredients":"Agua, glicerina, éter dicaprilílico, polideceno hidrogenado, alcohol estearílico, manteca de Butyrospermum parkii (karité), niacinamida, ácido tranexámico (2,5 %), octildodecanol, pantenol, ceramida NP, etilhexilglicerina, glutatión, tocoferol, extracto de centella asiática, hialuronato de sodio, ácido hialurónico hidrolizado.","image":"https://axis-y.com.mx/cdn/shop/files/TXA_Cream_Thumbnail.jpg?v=1767922691&width=533","types":["Crema"],"skinTypes":["Piel Seca","Piel Sensible"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Ceramidas","Ácido Tranexámico","Centella Asiática","Pantenol (B5)","Glutatión"]},{"brand":"AXIS-Y","name":"Ampolla de barrera cutánea intensiva de Alcachofa","description":"Fortalece tu piel, calma el estrés y restablece el equilibrio. Enriquecida con 10,000 ppm de extracto de alcachofa y una mezcla vegetal de centella asiática, raíz de regaliz y aloe, ayuda a mejorar la capacidad natural de la piel para protegerse y sanar.","ingredients":"Agua, agua de hoja de Aloe Barbadensis, butilenglicol, hialuronato de sodio, extracto de Centella Asiatica, glicerina, betaína, propanodiol, extracto de raíz de Glycyrrhiza Uralensis (regaliz), extracto de Hieracium Umbellatum, extracto de hoja de Cynara Scolymus (alcachofa) (10 000 ppm), ácido poliglutámico, beta-glucano, arginina, alantoína, adenosina.","image":"https://axis-y.com.mx/cdn/shop/files/Artichoke_Intensive_Skin_Barrier_Ampoule_8.png?v=1772068044&width=533","types":["Sérum/Ampolla"],"skinTypes":["Piel Seca","Piel Sensible"],"activeIngredients":["Ácido Hialurónico","Centella Asiática","Adenosina","Ácido Poliglutámico"]},{"brand":"AXIS-Y","name":"Mugwort Pore Clarifying Wash Off Pack","description":"Con una base de 61% de extracto de artemisa, esta mascarilla de lavado limpia los poros de impurezas, calma la piel inflamada e irritada y exfolia suavemente la piel muerta para revelar una tez brillante y saludable.","ingredients":"Extracto de Artemisia Princeps, caolín, dipropilenglicol, bentonita, betaína, polvo de semilla de Phaseolus Angularis, extracto de Laminaria Japonica, hialuronato de sodio, 1,2-hexanodiol, goma xantana, glicerina, beta-glucano, alantoína, ácido hialurónico hidrolizado.","image":"https://axis-y.com.mx/cdn/shop/files/Mugwort_Pore_Clarifying_Wash_Off_Pack_1.jpg?v=1772067546&width=533","types":["Mascarilla"],"skinTypes":[],"activeIngredients":["Ácido Hialurónico","Probióticos/Fermentos"]},{"brand":"AXIS-Y","name":"Tónico en gel Triple PDRN","description":"Tónico en gel enriquecido con triple PDRN para regeneración y revitalización de la piel. Una fórmula ligera que hidrata y mejora la textura cutánea.","ingredients":"Agua, PDRN, extractos botánicos, ácido hialurónico, glicerina, activos regeneradores.","image":"","types":["Tónico/Esencia"],"skinTypes":[],"activeIngredients":[]},{"brand":"AXIS-Y","name":"Espuma limpiadora refrescante Sunday Morning","description":"Nuestra espuma limpiadora tiene un pH de 5.5 para eliminar la suciedad, el exceso de grasa y otras impurezas de los poros, sin resecarla. Gracias a su tecnología patentada Aquaxyl, esta espuma limpiadora mantiene la piel hidratada y equilibrada.","ingredients":"Agua, glicerina, isetionato de cocoilo de sodio, taurato de metil cocoilo de sodio, glicinato de cocoilo de potasio, coco-betaína, cocoato de potasio, hialuronato de sodio, extracto de Centella asiática, extracto de flor de Calendula officinalis.","image":"https://axis-y.com.mx/cdn/shop/files/Sunday_Morning_Refreshing_Cleansing_Foam_1.jpg?v=1772067433&width=533","types":["Limpiador"],"skinTypes":[],"activeIngredients":["Ácido Hialurónico","Centella Asiática"]},{"brand":"AXIS-Y","name":"Crema protectora suavizante de la piel Pantenol 10 Shield Cream","description":"Formulada con un 10 % de pantenol (provitamina B5), esta crema ofrece hidratación, fortalece la piel y protege, a la vez que fortalece la barrera cutánea con el tiempo. Clínicamente probado para mejorar la función de barrera de humedad en solo 5 minutos.","ingredients":"Agua, pantenol (10 %), metilpropanodiol, escualano, glicerina, cetil etilhexanoato, vinil dimeticona, extracto de centella asiática, ceramida NP, fermento de Saccharomyces.","image":"https://axis-y.com.mx/cdn/shop/files/Panthenol_10_Skin_Smoothing_Shield_Cream_4.jpg?v=1772068491&width=533","types":["Crema"],"skinTypes":["Piel Seca","Piel Grasa","Piel Mixta","Piel Sensible","Piel Normal","Todo Tipo"],"activeIngredients":["Ceramidas","Centella Asiática","Pantenol (B5)","Escualano","Probióticos/Fermentos"]},{"brand":"AXIS-Y","name":"Tratamiento para imperfecciones Spot The Difference","description":"Formulado para pieles con tendencia acneica, grasas y sensibles, el Tratamiento Anti-Imperfecciones Spot The Difference proporciona un alivio eficaz contra brotes e imperfecciones. Este gel ligero también contiene cápsulas hidratantes de ceramida para ayudar a restaurar la barrera cutánea.","ingredients":"Agua, glicerina, propanodiol, niacinamida, extracto de hoja de Aloe Barbadensis, extracto de Centella Asiatica, ceramida NP, ácido hialurónico hidrolizado, ácido glicólico, ácido salicílico.","image":"https://axis-y.com.mx/cdn/shop/files/Spot_The_Difference_Blemish_Treatment_1.jpg?v=1772068495&width=533","types":["Sérum/Ampolla"],"skinTypes":["Piel Seca","Piel con Acné"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Ceramidas","Centella Asiática","AHA/BHA"]},{"brand":"AXIS-Y","name":"Limpiador en gel equilibrado de quinoa en un solo paso","description":"Un limpiador suave que elimina el maquillaje y los poros en un solo paso. Con un pH de 5.5, mantiene el pH saludable de la piel a la vez que elimina eficazmente el maquillaje, el exceso de sebo y la acumulación de grasa en una sola pasada, sin resecar la piel.","ingredients":"Agua, decil glucósido, cocoil glutamato sódico, extracto de semilla de Chenopodium quinoa, glicerina, extracto de Centella asiática, extracto de flor de Calendula officinalis, alantoína.","image":"https://m.media-amazon.com/images/I/31j6nU7-HXL._SY300_SX300_QL70_FMwebp_.jpg","types":["Limpiador"],"skinTypes":["Piel Grasa"],"activeIngredients":["Centella Asiática"]},{"brand":"Herbloom","name":"Protector solar \"Daily Tone Up Vegan Sunscreen\"","description":"La última tecnología coreana. Súper ligero para la piel, con fórmula y envase ecológicos. Completamente libre de cualquier yeso blanco, irritación ocular y pegajosidad. El factor de protección solar es SPF50+ PA++++. Los ingredientes a base de plantas llenos de vitaminas proporcionan una piel vitalizante.","ingredients":"Agua, Propanodiol, Polimetilsilsesquioxano, benzoato de dietilamino hidroxibenzoilo hexilo, etilhexil triazona, niacinamida, Hialuronato de Sodio, Extracto de Centella Asiatica, Tocoferol, Ácido Ascórbico Polipeptídico.","image":"https://cdn-image.oliveyoung.com/prdtImg/1726/cee03e34-12fd-448f-beb1-eadc0b98cfe9.jpg?RS=1500x1500&AR=0&SF=webp&QT=80","types":["Protector Solar"],"skinTypes":[],"activeIngredients":["Niacinamida","Ácido Hialurónico","Vitamina C","Centella Asiática"]},{"brand":"Herbloom","name":"Calming Days Protector Solar Vegano 50ml","description":"La última tecnología coreana. Súper ligero para la piel. Según los resultados de la encuesta de satisfacción, este producto mostró 99% de satisfacción en agradable sensación de uso. Contiene Extracto de Centella Asiática y extracto de aloe para tipos de piel sensibles.","ingredients":"Agua, Propanodiol, Polimetilsilsesquioxano, benzoato de dietilamino hidroxibenzoilo hexilo, niacinamida, Hialuronato de Sodio, Extracto de Centella Asiatica, Tocoferol, Ácido Ascórbico Polipeptídico.","image":"https://sv5-cdn.stylevana.com/media/catalog/product/cache/6c3215c44fb78e808e61cb3ea11ebdcd/h/e/herbloom-calming-days-vegan-sunscreen-spf-50-pa-50ml-136.jpg","types":["Protector Solar"],"skinTypes":["Piel Sensible"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Vitamina C","Centella Asiática"]},{"brand":"Herbloom","name":"Espuma limpiadora \"H.T Solution Pack Cleansing Foam\"","description":"Desintoxica profundamente a la vez que fortalece la barrera cutánea para una piel limpia y suave. Su rica espuma elimina las impurezas, el exceso de sebo y el maquillaje sin sensación de tirantez, para una tez radiante y uniforme.","ingredients":"Glicerina, agua purificada, ácido mirístico, ácido palmítico, hidróxido de potasio, calamina (10 000 ppm), ácido salicílico, aceite de hoja de árbol de té, pantenol, extracto de Houttuynia cordata.","image":"https://d1lfny8x5iw72k.cloudfront.net/storage/images/products/herbloom-ht-solution-pack-cleansing-foam-120g-198.webp","types":["Limpiador"],"skinTypes":["Piel Grasa"],"activeIngredients":["Pantenol (B5)","AHA/BHA"]},{"brand":"SKIN1004","name":"Mascarilla de arcilla Poremizing Quick Clay Stick Mask","description":"Una mascarilla suave en barra con 5 tipos de arcillas (18 % de caolín) y polvo fino de judía roja para absorber el exceso de sebo y cerrar los poros dilatados. Ingredientes principales: Extracto de Centella Asiática, Caolín, Bentonita, Illita, Montmorillonita.","ingredients":"Agua, caolín, dipropilenglicol, glicerina, butilenglicol, extracto de hoja de Aloe barbadensis, polvo de semilla de Phaseolus angularis, extracto de Centella asiática, bentonita, ilita, montmorillonita, calamina.","image":"https://m.media-amazon.com/images/I/51GT9rFrvlL._AC_SX679_.jpg","types":["Mascarilla"],"skinTypes":["Piel Grasa","Piel Mixta","Piel Normal"],"activeIngredients":["Centella Asiática"]},{"brand":"SKIN1004","name":"Poremizing Fresh Ampoule","description":"Una ampolla funcional que minimiza los poros con sales minerales rosas y 9 péptidos que limpia los poros y mejora la elasticidad de la piel. Ingredientes clave: Extracto de Centella Asiática, sales minerales, extracto de hoja de Aloe Barbadensis.","ingredients":"Extracto de Centella Asiática (5150 ppm), sales minerales, extracto de hoja de Aloe Barbadensis (10000 ppm), Complejo de 9 Péptidos (Acetil Hexapéptido-8, Acetil Octapéptido-3, Tripéptido-1 de Cobre, Palmitoil Pentapéptido-4, Palmitoil Tetrapéptido-7).","image":"https://m.media-amazon.com/images/I/61-oslxZ0xL._AC_SX522_.jpg","types":["Sérum/Ampolla"],"skinTypes":["Piel Grasa","Piel Mixta","Piel Sensible"],"activeIngredients":["Péptidos","Centella Asiática"]},{"brand":"SKIN1004","name":"Aceite limpiador ligero de centella","description":"La centella asiática y 6 aceites vegetales disuelven suavemente el maquillaje, el protector solar y el exceso de sebo de la piel, dejando un acabado refrescante y sin grasa. Tipo de piel: Normal, seca, sensible.","ingredients":"Estearato de etilhexilo, etilhexanoato de cetilo, tetraoleato de Sorbeth-30, triglicérido caprílico/cáprico, aceite de fruto de Citrus aurantium bergamia (bergamota), extracto de Centella asiática, aceite de semilla de Simmondsia chinensis (jojoba), aceite de fruto de Olea europaea (oliva).","image":"https://m.media-amazon.com/images/I/61ZG5xWuA+L._AC_SX679_.jpg","types":["Limpiador","Aceite Limpiador"],"skinTypes":["Piel Seca","Piel Sensible","Piel Normal"],"activeIngredients":["Centella Asiática"]},{"brand":"SKIN1004","name":"Ampolla de cápsula iluminadora de tono","description":"Una ampolla para uso diario, formulada con niacinamida, ácido tranexámico y Madewhite™ encapsulado para ayudar a mejorar el aspecto del tono desigual y la opacidad de la piel para una tez de aspecto más radiante.","ingredients":"Agua, butilenglicol, niacinamida, glicerina, ácido tranexámico, extracto de centella asiática, pantenol, madecasósido, ácido 3-O-etil ascórbico, fermento de lactobacilos.","image":"https://m.media-amazon.com/images/I/61mcUtpjwmL._AC_SL1500_.jpg","types":["Sérum/Ampolla"],"skinTypes":["Piel Seca","Piel Mixta","Piel Normal"],"activeIngredients":["Niacinamida","Vitamina C","Ácido Tranexámico","Centella Asiática","Pantenol (B5)","Probióticos/Fermentos"]},{"brand":"SKIN1004","name":"Hyalu-cica Sun Stick","description":"Con FPS 50+ PA++++, este protector solar en barra aprovecha el poder hidratante del extracto de cica y el ácido hialurónico. La combinación única de extracto de Centella Asiática y ácido hialurónico cura e hidrata simultáneamente la piel.","ingredients":"Polímero cruzado de metacrilato de metilo, cera sintética, benzoato de dietilamino hidroxibenzoil hexilo, etilhexil triazona, extracto de Centella Asiatica, hialuronato de sodio, ácido hialurónico hidrolizado, ácido hialurónico.","image":"https://m.media-amazon.com/images/I/41OZMb1K3TL._AC_SL1080_.jpg","types":["Protector Solar"],"skinTypes":[],"activeIngredients":["Ácido Hialurónico","Centella Asiática","AHA/BHA"]},{"brand":"SKIN1004","name":"Suero solar Hyalu-Cica Water-Fit UV","description":"Un protector solar ligero tipo sérum que hidrata y suaviza la piel para un acabado fresco y sin manchas blancas. Reformulado con pantenol y extractos de arroz, avena y soja para ayudar a mantener la hidratación.","ingredients":"Agua, propanodiol, pantenol, caprilil meticona, extracto de Centella asiática, hialuronato de sodio hidrolizado, hialuronato de sodio, ácido hialurónico, extracto de Oryza Sativa (arroz).","image":"https://m.media-amazon.com/images/I/419x+MCyZsL._AC_SX679_.jpg","types":["Sérum/Ampolla","Protector Solar"],"skinTypes":["Piel Seca","Piel Normal"],"activeIngredients":["Ácido Hialurónico","Centella Asiática","Pantenol (B5)","AHA/BHA"]},{"brand":"Anua","name":"Tónico Rice 70 Glow Milky Toner","description":"Tónico nutritivo formulado con agua de salvado de arroz y niacinamida para iluminar la piel, además de ceramida NP y hialuronato de sodio para aumentar la hidratación. Libre de fragancias y probado dermatológicamente como apto para todo tipo de piel.","ingredients":"Agua de salvado de Oryza Sativa (arroz), butilenglicol, glicerina, niacinamida, pantenol, betaína, hialuronato de sodio, ácido hialurónico, ceramida NP, arbutina, ácido ascórbico, adenosina, ceramida AP.","image":"https://m.media-amazon.com/images/I/41G4Js8BFgL._AC_SL1000_.jpg","types":["Tónico/Esencia"],"skinTypes":["Piel Seca","Piel Grasa","Piel Mixta","Piel Sensible","Piel Normal","Todo Tipo"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Vitamina C","Ceramidas","Alfa-Arbutina","Pantenol (B5)","Adenosina"]},{"brand":"Anua","name":"Sérum Facial Hidratante 7 Rice Ceramide Hydrating Barrier Serum","description":"Sérum enriquecido con agua de salvado de arroz para iluminar y aclarar la piel, extracto de miel para fortalecer la barrera cutánea, así como alfa-arbutina para atenuar manchas oscuras e hiperpigmentación.","ingredients":"Agua de salvado de Oryza Sativa (arroz), glicerina, niacinamida, pantenol, ceramida NP, hialuronato de sodio, alfa-arbutina, beta-glucano, tocoferol, arbutina, proteína de arroz hidrolizada, extracto de miel, ácido hialurónico.","image":"https://m.media-amazon.com/images/I/41b3XamFfoL._AC_SL1000_.jpg","types":["Sérum/Ampolla"],"skinTypes":["Piel Seca","Piel Grasa","Piel Mixta","Piel Sensible","Piel Normal","Todo Tipo"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Ceramidas","Alfa-Arbutina","Pantenol (B5)","Adenosina"]},{"brand":"Anua","name":"Sérum Facial Calmante Azelaic Acid 10 Hyaluron Redness Soothing Serum","description":"El sérum Anua Azelaic Acid está aquí para suavizar tu piel roja e irritada. Se caracteriza por un 10% de ácido azelaico para aliviar el acné, la rosácea y la hiperpigmentación, mientras el ácido hialurónico da una hidratación de larga duración.","ingredients":"Agua, ácido azelaico, glicerina, pantenol, hialuronato de sodio, niacinamida, extracto de Centella asiática, ceramida NP, escualano, zinc, AHA/BHA.","image":"https://m.media-amazon.com/images/I/51nR7ndiTZL._AC_SL1200_.jpg","types":["Sérum/Ampolla"],"skinTypes":["Piel Seca","Piel Grasa","Piel Mixta","Piel Sensible","Piel Normal","Todo Tipo"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Ceramidas","Ácido Azelaico","Centella Asiática","Pantenol (B5)","Escualano","AHA/BHA"]},{"brand":"Anua","name":"Sérum Facial Niacinamide 10% + TXA 4% Serum","description":"Con una poderosa combinación iluminadora de 10 % de niacinamida y 4 % de ácido tranexámico, este sérum se toma en serio la tarea de eliminar las manchas oscuras y las marcas postacné. Su fórmula sin fragancia y de textura no grasa ofrece beneficios agradables.","ingredients":"Agua, glicerina, niacinamida, ácido tranexámico, arbutina, hialuronato de sodio, alfa-arbutina, ceramida NP, pantenol, ácido poliglutámico, ácido 3-O-etil ascórbico, asiaticósido, ácido madecásico.","image":"https://m.media-amazon.com/images/I/61EpVSwr1sL._AC_SX522_.jpg","types":["Sérum/Ampolla"],"skinTypes":["Piel Seca","Piel Grasa","Piel Mixta","Piel Sensible","Piel Normal","Todo Tipo"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Vitamina C","Ceramidas","Ácido Tranexámico","Alfa-Arbutina","Centella Asiática","Pantenol (B5)","AHA/BHA","Ácido Poliglutámico","Probióticos/Fermentos"]},{"brand":"Anua","name":"Crema Facial PDRN Hyaluronic Acid 100 Moisturizing Cream","description":"Rica en PDRN de salmón, colágeno y ácido hialurónico, esta crema intensamente nutritiva revitaliza la piel madura y ayuda a prevenir irritaciones. La fórmula ligera se aplica perfecto debajo de tu base de maquillaje.","ingredients":"Agua, escualano, glicerina, niacinamida, ADN sódico, colágeno hidrolizado, hialuronato de sodio, ácido hialurónico, extracto de hoja de Centella asiática, adenosina.","image":"https://d1flfk77wl2xk4.cloudfront.net/Assets/anua-pdrn-hyaluronic-acid-100-moisturizing-cream-60ml/73/726/XXL_p0218472673.jpg","types":["Crema"],"skinTypes":["Piel Seca","Piel Grasa","Piel Mixta","Piel Sensible","Piel Normal","Todo Tipo"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Centella Asiática","Escualano","PDRN / ADN Sódico","Adenosina"]},{"brand":"HaruHaru","name":"Esencia Black Rice Probiotics Barrier Essence","description":"Esta esencia combina los complejos exclusivos de 5 ceramidas y 5 ácidos grasos que fortalecen la barrera de la piel. Formulada con fitoesteroles y colesterol para reafirmar e hidratar profundamente. Incluye filtrado de fermento de galactomyces y extracto de arroz negro fermentado.","ingredients":"Agua, aceite de semilla de Helianthus annuus (girasol), triglicérido caprílico/cáprico, extracto de Oryza sativa (arroz), filtrado de fermento de Galactomyces, pantenol, filtrado de fermento de Bifida, ceramida NP, escualano, ceramida NS, ceramida AS, ceramida AP, ceramida EOP.","image":"https://m.media-amazon.com/images/I/41uZbzwU0mL._AC_SX522_.jpg","types":["Sérum/Ampolla","Tónico/Esencia"],"skinTypes":["Piel Seca","Piel Grasa","Piel Mixta","Piel Sensible","Piel Normal","Todo Tipo"],"activeIngredients":["Ceramidas","Pantenol (B5)","Escualano","Probióticos/Fermentos"]},{"brand":"HaruHaru","name":"Gel Limpiador Black Rice Moisture 5.5 Soft Cleansing Gel","description":"Gel limpiador purificante con fórmula ligeramente ácida, enriquecida con agentes limpiadores derivados del coco. Elimina eficazmente la suciedad, las células muertas y las impurezas, mientras que el extracto fermentado de arroz negro ayuda a mantener la piel hidratada.","ingredients":"Agua, glicerina, coco-betaína, propanodiol, extracto de Oryza sativa (arroz), filtrado de extracto de fermento de Aspergillus, beta-glucano.","image":"https://m.media-amazon.com/images/I/51BC64EAr8L._AC_SL1000_.jpg","types":["Limpiador"],"skinTypes":["Piel Sensible"],"activeIngredients":["Probióticos/Fermentos"]},{"brand":"HaruHaru","name":"Aceite Limpiador Black Rice Moisture Deep Cleansing Oil","description":"Simple pero poderoso, aceite limpiador que contiene un 95% de aceites vegetales de origen natural para aportar una limpieza profunda y una hidratación duradera. Incorpora aceite de salvado de arroz negro coreano concentrado al 100%.","ingredients":"Aceite de salvado de Oryza sativa (arroz), triglicérido caprílico/cáprico, aceite de semilla de Helianthus annuus (girasol), aceite de fruto de Olea europaea (oliva), aceite de semilla de Simmondsia chinensis (jojoba), tocoferol, etilhexilglicerina.","image":"https://m.media-amazon.com/images/I/414NOeriV4L._AC_SL1000_.jpg","types":["Limpiador","Aceite Limpiador"],"skinTypes":["Piel Seca"],"activeIngredients":[]},{"brand":"HaruHaru","name":"Protector Solar Black Rice Moisture Airyfit Sunscreen","description":"Formulado con SPF50+ PA++++ para defenderse de los rayos UV. Una fórmula liviana infundida con extracto de arroz negro para una hidratación adicional. Enriquecido con ceramida NP, adenosina y niacinamida.","ingredients":"Agua, niacinamida, extracto de Oryza sativa (arroz), aceite de salvado de Oryza sativa (arroz), ceramida NP, adenosina, tocoferol, aceite de semilla de Moringa oleifera.","image":"https://m.media-amazon.com/images/I/41i256t8+3L._AC_SL1000_.jpg","types":["Protector Solar"],"skinTypes":[],"activeIngredients":["Niacinamida","Ceramidas","AHA/BHA","Adenosina"]},{"brand":"HaruHaru","name":"Tónico Black Rice Hyaluronic Toner Sin Fragrancia","description":"Formulado con un 95% de ingredientes de origen natural, incluyendo 2.000 ppm de extracto de arroz negro coreano, ácido hialurónico y beta-glucano para proporcionar una hidratación intensa mientras promueve la regeneración de las células de la piel.","ingredients":"Agua, betaína, glicerina, extracto de Oryza sativa (arroz) (2000 ppm), ácido hialurónico (600 ppm), betaglucano, goma de semilla de Tamarindus indica, extracto de raíz de Panax ginseng.","image":"https://m.media-amazon.com/images/I/4198g8VGL5L._AC_SL1000_.jpg","types":["Tónico/Esencia"],"skinTypes":["Piel Sensible"],"activeIngredients":["Ácido Hialurónico","Probióticos/Fermentos"]},{"brand":"HaruHaru","name":"Crema de ojos de bakuchiol de arroz negro","description":"Mejore la apariencia de las arrugas y las líneas finas alrededor de los ojos con esta crema para ojos formulada con 5000 ppm de bakuchiol y 2000 ppm de extracto hidratante de arroz negro coreano. También contiene extracto de brotes de bambú para cuidado antioxidante.","ingredients":"Agua, glicerina, niacinamida, bakuchiol, hialuronato de sodio, extracto de Oryza Sativa (arroz), adenosina, madecasósido, fermento de Aspergillus.","image":"https://m.media-amazon.com/images/I/41sU2gxMQeL._AC_SL1000_.jpg","types":["Crema","Contorno de Ojos"],"skinTypes":["Piel Madura"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Retinol/Bakuchiol","Centella Asiática","Adenosina","Probióticos/Fermentos"]},{"brand":"SKIN1004","name":"Probio-Cica Bakuchiol Eye Cream","description":"Qué es: Una crema de ojos suave con Centella fermentada y Bakuchiol (retinol vegano) que reduce la apariencia de líneas finas y arrugas para una piel más suave y firme alrededor de los ojos. Clínicamente probado para mejorar la apariencia de líneas finas y la textura de la piel en solo 2 semanas.  Beneficios: - Bakuchiol (5,000 ppm): alternativa vegetal al retinol, suaviza y reafirma la piel - Centella Asiática fermentada: calma la irritación y refuerza la barrera cutánea - Ceramida NP: hidratación profunda y soporte de la barrera - Fórmula rica que se absorbe rápidamente sin residuos pegajosos  Efectos: Formulado con Lactobacillus/Extracto Fermentado de Centella Asiática, Ceramidas y Ácido Hialurónico hidrolizado para hidratar intensamente la delicada zona de los ojos y mejorar su firmeza.","ingredients":"Agua, Glicerina, Butilenglicol, Ésteres Dipentaeritritilo Hexa C5-9, 1,2-Hexanodiol, Niacinamida, Escualano, Polglicerilo-3 Diestearato, Alcohol Cetearílico, Triglicérido Caprílico/Cáprico, Betaína, Manteca de Butyrospermum Parkii (Karité), Heptil Undecilenato, Extracto de Centella Asiatica, Pantenol, Bakuchiol, Estearato de Glicerilo, Polímero Cruzado de Acrilatos/Acrilato de Alquilo C10-30, Ácido Palmítico, Trometamina, Ácido Esteárico, Citrato de Estearato de Glicerilo, Carbómero, Etilhexilglicerina, Adenosina, Aceite de Semilla de Macadamia Ternifolia, Fitato de Sodio, Hialuronato de Sodio, Lecitina Hidrogenada, Ceramida NP, Copolímero de Acrilato de Glicerilo/Ácido Acrílico, Dextrina, Extracto de Theobroma Cacao (Cacao), Polglicerilo-10 Miristato, Fitoesfingosina, Fermento de Lactobacillus, Ácido Madecásico, Asiaticósido, Extensina Hidrolizada, Diestearato de Sacarosa, Ácido Asiático, Ácido Láurico, Fitoesteroles, Ácido Hialurónico Hidrolizado, Caprilil Glicol, Acetil Hexapéptido-8.","image":"https://www.skin1004.com/cdn/shop/files/skin1004-cream-probio-cica-bakuchiol-eye-cream-40032154091766_1440x.png?v=1709691065","types":["Crema","Contorno de Ojos"],"skinTypes":["Piel Seca","Piel Sensible","Piel Normal"],"activeIngredients":["Niacinamida","Ácido Hialurónico","Retinol/Bakuchiol","Ceramidas","Centella Asiática","Pantenol (B5)","Escualano","Péptidos","Adenosina","Probióticos/Fermentos"]},{"brand":"SKIN1004","name":"Madagascar Centella Asiatica 100 Ampoule","description":"Qué es: La ampolla insignia de SKIN1004 — una fórmula minimalista con extracto puro de Centella Asiática de Madagascar para calmar, hidratar y fortalecer la barrera cutánea. Su textura acuosa y ligera se absorbe rápidamente sin pegajosidad, ideal para todo tipo de piel, especialmente sensible y propensa al acné.  Beneficios: - Calma enrojecimiento e irritación visibles - Hidrata y fortalece la barrera cutánea natural - Textura acuosa de absorción rápida - Sin pegajosidad, base perfecta para el maquillaje - Apta para todo tipo de piel, incluida la más delicada  Efectos: El extracto de Centella Asiática (1,000 ppm) contiene ingredientes activos como el ácido madecásico y asiaticósido para mejorar el aspecto de la piel, calmar la irritación y apoyar una tez saludable.","ingredients":"Agua, Glicerina, Butilenglicol, Extracto de Centella Asiatica, 1,2-Hexanodiol, Goma de Celulosa, Etilhexilglicerina.","image":"https://kbeautymexico.com/cdn/shop/files/414jDIUrXEL.jpg?v=1724800216&width=1000","types":["Sérum/Ampolla"],"skinTypes":["Piel Seca","Piel Grasa","Piel Mixta","Piel Sensible","Piel Normal","Todo Tipo","Piel con Acné"],"activeIngredients":["Centella Asiática"]},{"brand":"SKIN1004","name":"Madagascar Centella Ampoule Foam","description":"Qué es: Espuma limpiadora enriquecida con 33% de extracto de Centella Asiática de Madagascar para limpiar profundamente sin resecar. Su fórmula con pH 5 elimina maquillaje, sebo e impurezas dejando la piel suave, calmada e hidratada. Los tensioactivos derivados del coco limpian con suavidad manteniendo el equilibrio de humedad natural.  Beneficios: - Elimina hasta el 92.69% del polvo fino - Bicarbonato de sodio ultra-fino absorbe el sebo y desobstruye los poros - Ácido Cítrico para exfoliación suave de células muertas - Hialuronato de Sodio para hidratación post-limpieza - Apta para todo tipo de piel, incluyendo sensible y propensa al acné  Efectos: Su pasta cremosa de tono marrón claro se transforma en una espuma rica y delicada al contacto con el agua, proporcionando una limpieza eficaz sin irritación ni sequedad.","ingredients":"Extracto de Centella Asiatica, Isetionato de Cocoílo de Sodio, Glicerina, Agua, Taurato de Metil Cocoílo de Sodio, Coco-Betaína, Glicinato de Cocoílo de Potasio, 1,2-Hexanodiol, Cloruro de Sodio, Cocoato de Potasio, Benzoato de Potasio, Policuaternio-67, Ácido Cítrico, Dextrina, Bicarbonato de Sodio, Extracto de Theobroma Cacao (Cacao), EDTA Disódico, Acetato de Sodio, Butilenglicol, Extracto de Raíz de Coptis Chinensis, Hialuronato de Sodio, Extracto de Fruto de Coccinia Indica, Extracto de Eclipta Prostrata.","image":"https://kbeautymexico.com/cdn/shop/files/41o-GKOTTKL._SL1000.jpg?v=1724800738&width=1000","types":["Limpiador"],"skinTypes":["Piel Seca","Piel Grasa","Piel Mixta","Piel Sensible","Piel Normal","Todo Tipo","Piel con Acné"],"activeIngredients":["Ácido Hialurónico","Centella Asiática","AHA/BHA"]}];
+
+const BRAND_INFO = {
+  'Dr. Althea': { emoji: '🌿', desc: 'Formulaciones clínicas K-Beauty para piel sensible y propensa al acné.' },
+  'AXIS-Y': { emoji: '🌱', desc: 'Skincare de comunidad global: vegano, sin fragrancias artificiales, cruelty-free.' },
+  'Herbloom': { emoji: '🌸', desc: 'Protección solar y limpieza con tecnología coreana, ingredientes vegetales.' },
+  'SKIN1004': { emoji: '💧', desc: 'El poder de la Centella Asiática: calma, repara y fortalece la piel.' },
+  'Anua': { emoji: '🌾', desc: 'Sérum y tónicos con extracto de arroz y activos iluminadores.' },
+  'HaruHaru': { emoji: '🍚', desc: 'Arroz negro fermentado para barrera y probióticos naturales.' },
+};
+
+// ── STATE ──
+let activeFilters = { type: null, skin: null, concern: null };
+let quizAnswers = { skinType: null, concerns: [], routine: null };
+let ingVisible = false;
+
+// Maps friendly concern keys → matching criteria
+const CONCERN_FILTER_MAP = {
+  acne:       { skinTypes: ['Piel con Acné'], ingredients: ['Niacinamida','AHA/BHA','Ácido Azelaico','Zinc (Óxido)','Centella Asiática'] },
+  manchas:    { skinTypes: [], ingredients: ['Niacinamida','Vitamina C','Ácido Tranexámico','Alfa-Arbutina','Glutatión'] },
+  arrugas:    { skinTypes: ['Piel Madura'], ingredients: ['Retinol/Bakuchiol','Péptidos','Adenosina','Resveratrol','PDRN / ADN Sódico'] },
+  hidratacion:{ skinTypes: [], ingredients: ['Ácido Hialurónico','Ceramidas','Pantenol (B5)','Escualano','Ácido Poliglutámico'] },
+  poros:      { skinTypes: ['Piel Grasa','Piel Mixta'], ingredients: ['AHA/BHA','Niacinamida','Zinc (Óxido)'] },
+  rojeces:    { skinTypes: ['Piel Sensible'], ingredients: ['Centella Asiática','Ácido Azelaico','Pantenol (B5)'] },
+  sensible:   { skinTypes: ['Piel Sensible'], ingredients: ['Centella Asiática','Ceramidas','Pantenol (B5)'] },
+  brillo:     { skinTypes: [], ingredients: ['Vitamina C','Niacinamida','Ácido Tranexámico','Glutatión','Alfa-Arbutina'] },
+  barrera:    { skinTypes: [], ingredients: ['Ceramidas','Pantenol (B5)','Probióticos/Fermentos','Escualano'] },
+  ojeras:     { types: ['Contorno de Ojos'], skinTypes: [], ingredients: ['Péptidos','Retinol/Bakuchiol','Adenosina'] },
+  sol:        { types: ['Protector Solar'], skinTypes: [], ingredients: [] },
+};
+
+function productMatchesConcern(p, key) {
+  const rule = CONCERN_FILTER_MAP[key];
+  if (!rule) return false;
+  if (rule.types && rule.types.length && rule.types.some(t => p.types.includes(t))) return true;
+  if (rule.skinTypes.length && rule.skinTypes.some(s => p.skinTypes.includes(s))) return true;
+  if (rule.ingredients.length && rule.ingredients.some(i => p.activeIngredients.includes(i))) return true;
+  return false;
+}
+
+// ── TYPE BADGE PRIORITY ──
+// For products with multiple types, always show the most specific/informative label
+const TYPE_PRIORITY = [
+  'Protector Solar',   // SPF products always lead with SPF
+  'Contorno de Ojos',  // eye-specific products lead with eye
+  'Aceite Limpiador',  // oil cleansers are more specific than generic Limpiador
+  'Mascarilla',
+  'Bruma',
+  'Tónico/Esencia',
+  'Sérum/Ampolla',
+  'Crema',
+  'Limpiador',
+];
+
+function primaryType(types) {
+  if (!types || !types.length) return 'Tratamiento';
+  for (const t of TYPE_PRIORITY) {
+    if (types.includes(t)) return t;
+  }
+  return types[0];
+}
+
+// ── RENDER CATALOG ──
+function renderCatalog(products) {
+  const grid = document.getElementById('product-grid');
+  const empty = document.getElementById('empty-state');
+  const countEl = document.getElementById('count-text');
+  grid.innerHTML = '';
+  if (!products.length) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    countEl.textContent = '0 productos';
+    return;
+  }
+  grid.style.display = 'grid';
+  empty.style.display = 'none';
+  countEl.textContent = `${products.length} producto${products.length !== 1 ? 's' : ''}`;
+  products.forEach((p, idx) => {
+    const typeLabel = primaryType(p.types);
+    const hasSkin = p.skinTypes.length > 0;
+    const imgSrc = p.image && p.image !== 'nan' ? p.image : '';
+    const div = document.createElement('div');
+    div.className = 'product-card';
+    div.onclick = () => openModal(PRODUCTS.indexOf(p));
+    div.innerHTML = `
+      <div class="card-img-wrap">
+        ${imgSrc ? `<img src="${imgSrc}" alt="${p.name}" onerror="this.parentElement.style.background='var(--rose-light)';this.remove()">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">${BRAND_INFO[p.brand]?.emoji || '🌸'}</div>`}
+        <div class="card-type-badge">${typeLabel}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-brand">${p.brand}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-tags">
+          ${p.skinTypes.includes('Todo Tipo') ? `<span class="card-tag">Todo Tipo</span>` : p.skinTypes.slice(0,2).map(s => `<span class="card-tag">${s}</span>`).join('')}
+          ${p.activeIngredients.slice(0,1).map(i => `<span class="card-tag pink">${i}</span>`).join('')}
+        </div>
+      </div>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+// ── FILTERS ──
+function toggleFilter(type, value) {
+  if (activeFilters[type] === value) {
+    activeFilters[type] = null;
+  } else {
+    activeFilters[type] = value;
+  }
+  updateChipStyles();
+  applyFilters();
+}
+
+function updateChipStyles() {
+  document.querySelectorAll('#type-chips .chip').forEach(c => {
+    const label = c.getAttribute('onclick').match(/'([^']+)'\)/)[1];
+    c.className = 'chip' + (activeFilters.type === label ? ' active' : '');
+  });
+  document.querySelectorAll('#skin-chips .chip').forEach(c => {
+    const label = c.getAttribute('onclick').match(/'([^']+)'\)/)[1];
+    c.className = 'chip' + (activeFilters.skin === label ? ' active-skin' : '');
+  });
+  document.querySelectorAll('#concern-chips .chip').forEach(c => {
+    const label = c.getAttribute('onclick').match(/'([^']+)'\)/)[1];
+    c.className = 'chip' + (activeFilters.concern === label ? ' active-concern' : '');
+  });
+}
+
+function applyFilters() {
+  let filtered = PRODUCTS.filter(p => {
+    if (activeFilters.type && !p.types.includes(activeFilters.type)) return false;
+    if (activeFilters.skin && !p.skinTypes.includes(activeFilters.skin) && !p.skinTypes.includes('Todo Tipo')) return false;
+    if (activeFilters.concern && !productMatchesConcern(p, activeFilters.concern)) return false;
+    return true;
+  });
+  renderCatalog(filtered);
+}
+
+function resetFilters() {
+  activeFilters = { type: null, skin: null, concern: null };
+  updateChipStyles();
+  renderCatalog(PRODUCTS);
+}
+
+// ── MODAL ──
+function openModal(idx) {
+  const p = PRODUCTS[idx];
+  document.getElementById('modal-img').src = p.image && p.image !== 'nan' ? p.image : '';
+  if (!p.image || p.image === 'nan') {
+    document.querySelector('.modal-img-wrap').style.background = 'var(--rose-light)';
+    document.querySelector('.modal-img-wrap').innerHTML = `<button class="modal-close" onclick="closeModalBtn()">✕</button><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;">${BRAND_INFO[p.brand]?.emoji || '🌸'}</div>`;
+  }
+  document.getElementById('modal-brand').textContent = p.brand;
+  document.getElementById('modal-name').textContent = p.name;
+  document.getElementById('modal-desc').textContent = p.description;
+  document.getElementById('modal-ing-full').textContent = p.ingredients;
+  document.getElementById('modal-ing-wrap').style.display = 'none';
+  document.getElementById('modal-ing-btn').textContent = 'Ver ingredientes completos ▼';
+  ingVisible = false;
+  
+  const typesEl = document.getElementById('modal-types');
+  typesEl.innerHTML = p.types.length ? p.types.map(t => `<span class="modal-chip type">${t}</span>`).join('') : '<span style="color:var(--mid);font-size:0.8rem;">—</span>';
+  
+  const skinsEl = document.getElementById('modal-skins');
+  skinsEl.innerHTML = p.skinTypes.length ? p.skinTypes.map(s => `<span class="modal-chip skin">${s}</span>`).join('') : '<span style="color:var(--mid);font-size:0.8rem;">Todo tipo de piel</span>';
+  
+  const ingEl = document.getElementById('modal-ingredients');
+  ingEl.innerHTML = p.activeIngredients.length ? p.activeIngredients.map(i => `<span class="modal-chip ingredient">${i}</span>`).join('') : '<span style="color:var(--mid);font-size:0.8rem;">—</span>';
+  
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-overlay')) {
+    closeModalBtn();
+  }
+}
+function closeModalBtn() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function toggleIngredients() {
+  ingVisible = !ingVisible;
+  document.getElementById('modal-ing-wrap').style.display = ingVisible ? 'block' : 'none';
+  document.getElementById('modal-ing-btn').textContent = ingVisible ? 'Ocultar ingredientes ▲' : 'Ver ingredientes completos ▼';
+}
+
+// ── VIEW SWITCHING ──
+function switchView(view) {
+  document.getElementById('catalog-section').style.display = view === 'catalog' ? 'block' : 'none';
+  document.getElementById('quiz-section').style.display = view === 'quiz' ? 'block' : 'none';
+  document.getElementById('quiz-results').style.display = view === 'results' ? 'block' : 'none';
+  document.getElementById('brands-section').style.display = view === 'brands' ? 'block' : 'none';
+  document.getElementById('hero-section').style.display = (view === 'catalog') ? 'block' : 'none';
+  
+  document.getElementById('nav-catalog').className = 'nav-item' + (view === 'catalog' ? ' active' : '');
+  document.getElementById('nav-quiz').className = 'nav-item' + (view === 'quiz' || view === 'results' ? ' active' : '');
+  document.getElementById('nav-brands').className = 'nav-item' + (view === 'brands' ? ' active' : '');
+  window.scrollTo(0, 0);
+}
+
+// ── QUIZ ──
+let currentStep = 0;
+
+// All possible concerns with metadata
+const ALL_CONCERNS = [
+  { key: 'acne',       icon: '🎯', label: 'Acné e Imperfecciones',   desc: 'Brotes activos, puntos negros, poros obstruidos, marcas post-acné.' },
+  { key: 'manchas',    icon: '☀️', label: 'Manchas y Tono Desigual', desc: 'Hiperpigmentación, tono apagado, cicatrices de acné.' },
+  { key: 'arrugas',    icon: '⏳', label: 'Arrugas y Firmeza',        desc: 'Líneas de expresión, pérdida de elasticidad y firmeza. Piel madura.' },
+  { key: 'hidratacion',icon: '💧', label: 'Hidratación y Barrera',    desc: 'Piel deshidratada, tirante o con la barrera debilitada.' },
+  { key: 'poros',      icon: '🔍', label: 'Poros y Exceso de Sebo',   desc: 'Poros dilatados, brillos, piel grasa.' },
+  { key: 'rojeces',    icon: '🌿', label: 'Rojeces e Irritación',     desc: 'Enrojecimiento persistente, piel reactiva o irritada.' },
+  { key: 'brillo',     icon: '✨', label: 'Falta de Luminosidad',     desc: 'Piel opaca, sin brillo, tez cansada o apagada.' },
+  { key: 'barrera',    icon: '🛡️', label: 'Reparar la Barrera',       desc: 'Piel sensibilizada, dañada o reactiva ante productos.' },
+  { key: 'ojeras',     icon: '👁️', label: 'Contorno de Ojos',         desc: 'Ojeras, bolsas, arrugas o líneas alrededor de los ojos.' },
+  { key: 'sol',        icon: '🌞', label: 'Protección Solar',         desc: 'Proteger del daño UV y fotoenvejecimiento.' },
+];
+
+// Which concerns to show first for each skin type
+const SKIN_CONCERN_PRIORITY = {
+  'Piel Seca':   ['hidratacion','barrera','arrugas','rojeces','manchas','brillo','ojeras','poros','acne','sol'],
+  'Piel Grasa':  ['poros','acne','manchas','brillo','hidratacion','rojeces','barrera','arrugas','sol','ojeras'],
+  'Piel Mixta':  ['poros','acne','hidratacion','manchas','brillo','barrera','rojeces','arrugas','sol','ojeras'],
+  'Piel Normal': ['manchas','brillo','hidratacion','arrugas','ojeras','barrera','poros','rojeces','acne','sol'],
+};
+
+function showQuiz() {
+  quizAnswers = { skinType: null, isSensitive: false, concerns: [], routine: null };
+  currentStep = 0;
+  document.getElementById('next-0').disabled = true;
+  document.getElementById('next-1').disabled = true;
+  document.getElementById('next-2').disabled = true;
+  // Reset sensitive toggle
+  const toggle = document.getElementById('sensitive-toggle');
+  if (toggle) { toggle.className = 'sensitive-toggle'; document.getElementById('sensitive-check-icon').textContent = ''; }
+  updateDots(0);
+  for (let i = 0; i < 3; i++) {
+    const s = document.getElementById(`step-${i}`);
+    if (s) s.className = 'quiz-step' + (i === 0 ? ' active' : '');
+  }
+  switchView('quiz');
+}
+
+function toggleSensitive() {
+  quizAnswers.isSensitive = !quizAnswers.isSensitive;
+  const toggle = document.getElementById('sensitive-toggle');
+  const icon = document.getElementById('sensitive-check-icon');
+  toggle.className = 'sensitive-toggle' + (quizAnswers.isSensitive ? ' checked' : '');
+  icon.textContent = quizAnswers.isSensitive ? '✓' : '';
+}
+
+function selectSkinType(value, el) {
+  document.querySelectorAll('#step-0 .quiz-opt').forEach(o => o.className = 'quiz-opt');
+  el.className = 'quiz-opt selected';
+  quizAnswers.skinType = value;
+  quizAnswers.concerns = []; // reset if they go back and change
+  document.getElementById('next-0').disabled = false;
+}
+
+function buildConcernOptions(skinType) {
+  const priority = SKIN_CONCERN_PRIORITY[skinType] || ALL_CONCERNS.map(c => c.key);
+  const ordered = priority.map(k => ALL_CONCERNS.find(c => c.key === k)).filter(Boolean);
+  const container = document.getElementById('concerns-options');
+  container.innerHTML = '';
+  ordered.forEach((c, i) => {
+    const highlighted = i < 3; // top 3 for this skin type get a subtle highlight
+    const div = document.createElement('div');
+    div.className = 'quiz-opt' + (highlighted ? ' concern-suggested' : '');
+    div.setAttribute('data-key', c.key);
+    div.onclick = function() { toggleConcern(c.key, this); };
+    div.innerHTML = `
+      <span class="opt-icon">${c.icon}</span>
+      <span class="opt-text">
+        <span class="opt-label">${c.label}${highlighted ? ' <span class="suggested-tag">Recomendado</span>' : ''}</span>
+        <span class="opt-desc">${c.desc}</span>
+      </span>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function toggleConcern(value, el) {
+  const idx = quizAnswers.concerns.indexOf(value);
+  if (idx >= 0) {
+    quizAnswers.concerns.splice(idx, 1);
+    el.className = el.classList.contains('concern-suggested') ? 'quiz-opt concern-suggested' : 'quiz-opt';
+  } else {
+    if (quizAnswers.concerns.length >= 3) {
+      // Remove oldest selection visually
+      const oldest = quizAnswers.concerns.shift();
+      const oldEl = document.querySelector(`[data-key="${oldest}"]`);
+      if (oldEl) oldEl.className = oldEl.classList.contains('concern-suggested') ? 'quiz-opt concern-suggested' : 'quiz-opt';
+    }
+    quizAnswers.concerns.push(value);
+    el.className = (el.classList.contains('concern-suggested') ? 'quiz-opt concern-suggested' : 'quiz-opt') + ' selected';
+  }
+  document.getElementById('next-1').disabled = quizAnswers.concerns.length === 0;
+}
+
+function selectRoutine(value, el) {
+  document.querySelectorAll('#step-2 .quiz-opt').forEach(o => o.className = 'quiz-opt');
+  el.className = 'quiz-opt selected';
+  quizAnswers.routine = value;
+  document.getElementById('next-2').disabled = false;
+}
+
+function goStep(step) {
+  // When entering step 1, build the adaptive concern options
+  if (step === 1 && quizAnswers.skinType) {
+    buildConcernOptions(quizAnswers.skinType);
+    // Re-mark already-selected concerns
+    quizAnswers.concerns.forEach(k => {
+      const el = document.querySelector(`[data-key="${k}"]`);
+      if (el) el.className = (el.classList.contains('concern-suggested') ? 'quiz-opt concern-suggested' : 'quiz-opt') + ' selected';
+    });
+    document.getElementById('next-1').disabled = quizAnswers.concerns.length === 0;
+  }
+  document.getElementById(`step-${currentStep}`).className = 'quiz-step';
+  currentStep = step;
+  document.getElementById(`step-${step}`).className = 'quiz-step active';
+  updateDots(step);
+  document.getElementById('step-label').textContent = `Paso ${step + 1} de 3`;
+  document.querySelector('.quiz-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateDots(active) {
+  for (let i = 0; i < 3; i++) {
+    const d = document.getElementById(`dot-${i}`);
+    d.className = 'step-dot' + (i < active ? ' done' : i === active ? ' active' : '');
+  }
+}
+
+// ── QUIZ RESULTS ──
+
+// Ingredient mapping per concern key
+const QUIZ_CONCERN_INGREDIENTS = {
+  acne:        { ingredients: ['Niacinamida','AHA/BHA','Ácido Azelaico','Zinc (Óxido)','Centella Asiática'], skinTypes: ['Piel con Acné'] },
+  manchas:     { ingredients: ['Niacinamida','Vitamina C','Ácido Tranexámico','Alfa-Arbutina','Glutatión'], skinTypes: [] },
+  arrugas:     { ingredients: ['Retinol/Bakuchiol','Péptidos','Adenosina','Resveratrol','PDRN / ADN Sódico'], skinTypes: ['Piel Madura'] },
+  hidratacion: { ingredients: ['Ácido Hialurónico','Ceramidas','Pantenol (B5)','Escualano','Ácido Poliglutámico','Probióticos/Fermentos'], skinTypes: ['Piel Seca'] },
+  sensible:    { ingredients: ['Centella Asiática','Ceramidas','Pantenol (B5)','Ácido Hialurónico'], skinTypes: ['Piel Sensible'] },
+  poros:       { ingredients: ['Niacinamida','AHA/BHA','Zinc (Óxido)'], skinTypes: ['Piel Grasa','Piel Mixta'] },
+  rojeces:     { ingredients: ['Centella Asiática','Ácido Azelaico','Pantenol (B5)','Ceramidas'], skinTypes: ['Piel Sensible'] },
+  brillo:      { ingredients: ['Vitamina C','Niacinamida','Ácido Tranexámico','Glutatión','Alfa-Arbutina','Adenosina'], skinTypes: [] },
+  barrera:     { ingredients: ['Ceramidas','Pantenol (B5)','Probióticos/Fermentos','Escualano','Ácido Hialurónico'], skinTypes: [] },
+  ojeras:      { ingredients: ['Péptidos','Retinol/Bakuchiol','Adenosina','Niacinamida'], skinTypes: [], types: ['Contorno de Ojos'] },
+  sol:         { ingredients: [], skinTypes: [], types: ['Protector Solar'] },
+};
+
+// Product type slots per routine level
+const ROUTINE_SLOTS = {
+  basica:     ['Limpiador','Crema'],
+  intermedia: ['Limpiador','Sérum/Ampolla','Crema','Protector Solar'],
+  completa:   ['Limpiador','Tónico/Esencia','Sérum/Ampolla','Crema','Contorno de Ojos','Protector Solar','Mascarilla','Aceite Limpiador'],
+};
+
+// Friendly labels for result section headers
+const SLOT_LABELS = {
+  'Limpiador':       { icon: '🧼', label: 'Limpieza' },
+  'Aceite Limpiador':{ icon: '🫧', label: 'Limpieza en Aceite' },
+  'Tónico/Esencia':  { icon: '💦', label: 'Tónico / Esencia' },
+  'Sérum/Ampolla':   { icon: '💉', label: 'Sérum / Ampolla' },
+  'Crema':           { icon: '🫙', label: 'Hidratante / Crema' },
+  'Contorno de Ojos':{ icon: '👁️', label: 'Contorno de Ojos' },
+  'Protector Solar': { icon: '🌞', label: 'Protector Solar' },
+  'Mascarilla':      { icon: '🎭', label: 'Mascarilla' },
+  'Bruma':           { icon: '🌬️', label: 'Bruma' },
+};
+
+function scoreProduct(p, skin, isSensitive, concerns) {
+  // Skip products with no meaningful data
+  if (!p.description || p.description === 'nan' || !p.name) return -99;
+
+  let score = 0;
+
+  // ── Skin type match ──
+  if (p.skinTypes.includes(skin)) score += 10;           // exact base type match
+  else if (p.skinTypes.includes('Todo Tipo')) score += 6; // universal fit
+  else if (p.skinTypes.length === 0) score += 1;          // no data — barely counts
+  else score -= 2;                                         // wrong skin type — penalize
+
+  // ── Sensitive modifier ──
+  // Products explicitly formulated for sensitive skin get a bonus when isSensitive is true.
+  // Products NOT marked for sensitive also don't get penalised — they just don't get the bonus.
+  if (isSensitive && p.skinTypes.includes('Piel Sensible')) score += 8;
+  // Boost calming ingredients regardless of product skin type tag
+  if (isSensitive) {
+    const calmingIngredients = ['Centella Asiática','Ceramidas','Pantenol (B5)'];
+    calmingIngredients.forEach(ing => {
+      if (p.activeIngredients.includes(ing)) score += 2;
+    });
+  }
+
+  // ── Concern match ──
+  const desiredIngredients = new Set();
+  const desiredTypes = new Set();
+  const desiredSkinTypes = new Set();
+
+  concerns.forEach(key => {
+    const rule = QUIZ_CONCERN_INGREDIENTS[key];
+    if (!rule) return;
+    rule.ingredients.forEach(i => desiredIngredients.add(i));
+    (rule.types || []).forEach(t => desiredTypes.add(t));
+    rule.skinTypes.forEach(s => desiredSkinTypes.add(s));
+  });
+
+  // Count how many distinct concerns this product addresses
+  const concernsCovered = concerns.filter(key => {
+    const rule = QUIZ_CONCERN_INGREDIENTS[key];
+    if (!rule) return false;
+    const hasIngredient = rule.ingredients.some(i => p.activeIngredients.includes(i));
+    const hasType = (rule.types || []).some(t => p.types.includes(t));
+    const hasSkin = rule.skinTypes.some(s => p.skinTypes.includes(s) || p.skinTypes.includes('Todo Tipo'));
+    return hasIngredient || hasType || hasSkin;
+  }).length;
+
+  // Reward breadth of concern coverage, not just ingredient count
+  score += concernsCovered * 8;
+
+  // Extra points per matching ingredient (secondary signal)
+  p.activeIngredients.forEach(ing => {
+    if (desiredIngredients.has(ing)) score += 2;
+  });
+
+  // Type match bonus (e.g. sun concern → sunscreen)
+  p.types.forEach(t => {
+    if (desiredTypes.has(t)) score += 6;
+  });
+
+  // Skin type concern match (e.g. acne concern helps rank 'Piel con Acné' products higher)
+  p.skinTypes.forEach(s => {
+    if (desiredSkinTypes.has(s)) score += 3;
+  });
+
+  return score;
+}
+
+function buildReasonTag(p, skin, isSensitive, concerns) {
+  const reasons = [];
+
+  // Skin type match
+  if (p.skinTypes.includes(skin)) reasons.push(`ideal para ${skin.toLowerCase()}`);
+  else if (p.skinTypes.includes('Todo Tipo')) reasons.push('apto para todo tipo de piel');
+
+  // Condition matches
+  if (isSensitive && p.skinTypes.includes('Piel Sensible')) reasons.push('apto para piel sensible');
+  if (concerns.includes('acne') && p.skinTypes.includes('Piel con Acné')) reasons.push('formulado para piel con acné');
+  if (concerns.includes('arrugas') && p.skinTypes.includes('Piel Madura')) reasons.push('formulado para piel madura');
+
+  // Ingredient/type matches
+  concerns.forEach(key => {
+    const rule = QUIZ_CONCERN_INGREDIENTS[key];
+    if (!rule) return;
+    const matchedIng = rule.ingredients.filter(i => p.activeIngredients.includes(i));
+    const hasType = (rule.types || []).some(t => p.types.includes(t));
+    const concern = ALL_CONCERNS.find(c => c.key === key);
+    if (hasType && concern) reasons.push(concern.label.toLowerCase());
+    else if (matchedIng.length > 0 && concern) reasons.push(`${matchedIng[0].toLowerCase()} para ${concern.label.toLowerCase()}`);
+  });
+
+  if (!reasons.length) return '';
+  // Dedupe and show up to 2
+  return [...new Set(reasons)].slice(0, 2).map(r => `<span class="reason-tag">✓ ${r}</span>`).join('');
+}
+
+function showResults() {
+  const skin = quizAnswers.skinType;
+  const isSensitive = quizAnswers.isSensitive;
+  const concerns = quizAnswers.concerns;
+  const routine = quizAnswers.routine;
+
+  // ── Routine slots ──
+  const slots = [...(ROUTINE_SLOTS[routine] || ROUTINE_SLOTS['intermedia'])];
+  if (concerns.includes('sol') && !slots.includes('Protector Solar')) slots.push('Protector Solar');
+  if (concerns.includes('ojeras') && !slots.includes('Contorno de Ojos')) slots.push('Contorno de Ojos');
+
+  // ── Score all products ──
+  const scored = PRODUCTS.map(p => ({
+    ...p,
+    score: scoreProduct(p, skin, isSensitive, concerns),
+    origIdx: PRODUCTS.indexOf(p),
+  })).sort((a, b) => b.score - a.score);
+
+  // ── TAB 1: Routine — best product per slot, no repeats ──
+  const usedIdx = new Set();
+  const slotResults = [];
+  slots.forEach(slot => {
+    const best = scored.find(p => {
+      if (usedIdx.has(p.origIdx)) return false;
+      if (slot === 'Limpiador') return p.types.includes('Limpiador') || p.types.includes('Aceite Limpiador');
+      return p.types.includes(slot);
+    });
+    if (best) {
+      usedIdx.add(best.origIdx);
+      slotResults.push({ slot, product: best });
+    }
+  });
+
+  // ── TAB 2: All compatible products (skin + sensitive + concern match) ──
+  const allMatches = scored.filter(p => {
+    if (!p.description || p.description === 'nan') return false;
+    const skinOk = p.skinTypes.includes(skin) || p.skinTypes.includes('Todo Tipo');
+    const sensitiveOk = isSensitive && p.skinTypes.includes('Piel Sensible');
+    const concernOk = concerns.some(key => {
+      const rule = QUIZ_CONCERN_INGREDIENTS[key];
+      if (!rule) return false;
+      return rule.ingredients.some(i => p.activeIngredients.includes(i)) ||
+             (rule.types || []).some(t => p.types.includes(t)) ||
+             rule.skinTypes.some(s => p.skinTypes.includes(s));
+    });
+    return skinOk || sensitiveOk || concernOk;
+  });
+
+  // ── Profile tags ──
+  const concernLabels = concerns.map(k => ALL_CONCERNS.find(c => c.key === k)).filter(Boolean);
+  document.getElementById('results-profile').innerHTML =
+    `<span class="profile-tag">✨ ${skin}</span>` +
+    (isSensitive ? `<span class="profile-tag">🌸 Piel Sensible</span>` : '') +
+    concernLabels.map(c => `<span class="profile-tag">${c.icon} ${c.label}</span>`).join('') +
+    `<span class="profile-tag">${routine === 'basica' ? '🌱 Rutina básica' : routine === 'intermedia' ? '🌿 Rutina intermedia' : '🌳 Rutina completa'}</span>`;
+
+  document.getElementById('results-subtitle').textContent =
+    `${slotResults.length} pasos en tu rutina · ${allMatches.length} productos compatibles`;
+
+  // ── Tab counts ──
+  document.getElementById('routine-count').textContent = slotResults.length;
+  document.getElementById('matches-count').textContent = allMatches.length;
+
+  // ── Render routine slots ──
+  const sectionsEl = document.getElementById('results-sections');
+  sectionsEl.innerHTML = '';
+  slotResults.forEach(({ slot, product: p }) => {
+    const meta = SLOT_LABELS[slot] || { icon: '🧴', label: slot };
+    const imgSrc = p.image && p.image !== 'nan' ? p.image : '';
+    const reasonHTML = buildReasonTag(p, skin, isSensitive, concerns);
+    const section = document.createElement('div');
+    section.className = 'slot-section';
+    section.innerHTML = `
+      <div class="slot-label">${meta.icon} ${meta.label}</div>
+      <div class="slot-card" onclick="openModal(${p.origIdx})">
+        <div class="slot-card-img">
+          ${imgSrc
+            ? `<img src="${imgSrc}" alt="${p.name}" onerror="this.parentElement.style.background='var(--rose-light)';this.remove()">`
+            : `<div style="width:100%;min-height:96px;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;">${BRAND_INFO[p.brand]?.emoji || '🌸'}</div>`}
+        </div>
+        <div class="slot-card-body">
+          <div class="card-brand">${p.brand}</div>
+          <div class="card-name" style="font-size:0.88rem;margin-bottom:7px;">${p.name}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">${reasonHTML}</div>
+        </div>
+      </div>
+    `;
+    sectionsEl.appendChild(section);
+  });
+
+  // ── Render all-matches grid ──
+  const matchGrid = document.getElementById('results-match-grid');
+  matchGrid.innerHTML = '';
+  document.getElementById('matches-desc').textContent =
+    `Todos los productos compatibles con ${skin} y tus preocupaciones, ordenados por relevancia. Los que ya están en tu rutina están marcados.`;
+
+  allMatches.forEach(p => {
+    const typeLabel = primaryType(p.types);
+    const imgSrc = p.image && p.image !== 'nan' ? p.image : '';
+    const inRoutine = usedIdx.has(p.origIdx);
+    const div = document.createElement('div');
+    div.className = 'product-card';
+    div.setAttribute('data-types', p.types.join(','));
+    div.onclick = () => openModal(p.origIdx);
+    div.innerHTML = `
+      <div class="card-img-wrap">
+        ${imgSrc ? `<img src="${imgSrc}" alt="${p.name}" onerror="this.parentElement.style.background='var(--rose-light)';this.remove()">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">${BRAND_INFO[p.brand]?.emoji || '🌸'}</div>`}
+        <div class="card-type-badge">${typeLabel}</div>
+        ${inRoutine ? `<div style="position:absolute;top:8px;right:8px;background:var(--sage);color:white;border-radius:10px;padding:2px 7px;font-size:0.6rem;font-weight:700;letter-spacing:0.04em;">EN TU RUTINA</div>` : ''}
+      </div>
+      <div class="card-body">
+        <div class="card-brand">${p.brand}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-tags">
+          ${p.skinTypes.includes('Todo Tipo') ? `<span class="card-tag">Todo Tipo</span>` : p.skinTypes.slice(0,2).map(s => `<span class="card-tag">${s}</span>`).join('')}
+          ${p.activeIngredients.slice(0,1).map(i => `<span class="card-tag pink">${i}</span>`).join('')}
+        </div>
+      </div>
+    `;
+    matchGrid.appendChild(div);
+  });
+
+  switchResultTab('routine');
+  // Reset the type filter to "Todos"
+  document.querySelectorAll('.match-filter-chip').forEach(c => {
+    c.className = 'match-filter-chip' + (c.getAttribute('data-type') === 'all' ? ' active' : '');
+  });
+  document.getElementById('match-empty').style.display = 'none';
+  document.getElementById('results-match-grid').style.display = 'grid';
+  switchView('results');
+}
+
+function switchResultTab(tab) {
+  document.getElementById('tab-routine').className  = 'result-tab'  + (tab === 'routine'  ? ' active' : '');
+  document.getElementById('tab-matches').className  = 'result-tab'  + (tab === 'matches'  ? ' active' : '');
+  document.getElementById('panel-routine').className = 'result-tab-panel' + (tab === 'routine'  ? ' active' : '');
+  document.getElementById('panel-matches').className = 'result-tab-panel' + (tab === 'matches'  ? ' active' : '');
+}
+
+function filterMatchGrid(type) {
+  // Update chip active state
+  document.querySelectorAll('.match-filter-chip').forEach(c => {
+    c.className = 'match-filter-chip' + (c.getAttribute('data-type') === type ? ' active' : '');
+  });
+
+  // Show/hide cards
+  const cards = document.querySelectorAll('#results-match-grid .product-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const cardTypes = (card.getAttribute('data-types') || '').split(',');
+    const show = type === 'all' ||
+      cardTypes.includes(type) ||
+      (type === 'Limpiador' && cardTypes.includes('Aceite Limpiador'));
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+
+  document.getElementById('match-empty').style.display = visible === 0 ? 'block' : 'none';
+  document.getElementById('results-match-grid').style.display = visible === 0 ? 'none' : 'grid';
+}
+
+function retakeQuiz() {
+  showQuiz();
+}
+
+// ── BRANDS VIEW ──
+function renderBrands() {
+  const grid = document.getElementById('brands-grid');
+  grid.innerHTML = '';
+  Object.entries(BRAND_INFO).forEach(([brand, info]) => {
+    const count = PRODUCTS.filter(p => p.brand === brand).length;
+    const sampleImgs = PRODUCTS.filter(p => p.brand === brand && p.image && p.image !== 'nan').slice(0,3);
+    const div = document.createElement('div');
+    div.style.cssText = 'background:var(--white);border-radius:16px;padding:20px;box-shadow:var(--shadow);cursor:pointer;';
+    div.onclick = () => { switchView('catalog'); resetFilters(); /* filter by brand */ filterByBrand(brand); };
+    div.innerHTML = `
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+        <div style="font-size:2.2rem;">${info.emoji}</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;">${brand}</div>
+          <div style="font-size:0.75rem;color:var(--mid);">${count} productos</div>
+        </div>
+      </div>
+      <p style="font-size:0.8rem;color:var(--mid);line-height:1.5;margin-bottom:14px;">${info.desc}</p>
+      <div style="display:flex;gap:6px;">
+        ${sampleImgs.map(p => `<div style="width:52px;height:52px;border-radius:10px;overflow:hidden;background:var(--cream);flex-shrink:0;"><img src="${p.image}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='var(--rose-light)';this.remove()"></div>`).join('')}
+      </div>
+      <div style="margin-top:14px;background:var(--rose);color:white;border-radius:20px;padding:8px 16px;font-size:0.78rem;font-weight:500;text-align:center;">Ver productos →</div>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+function filterByBrand(brand) {
+  // We'll add a temporary "brand" chip message
+  const countEl = document.getElementById('count-text');
+  const filtered = PRODUCTS.filter(p => p.brand === brand);
+  renderCatalog(filtered);
+  countEl.textContent = `${filtered.length} productos · ${brand}`;
+}
+
+// ── INIT ──
+renderCatalog(PRODUCTS);
+renderBrands();
+
+
+</script>
+</body>
+</html>
