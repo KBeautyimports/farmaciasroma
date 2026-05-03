@@ -683,6 +683,24 @@
   .result-tab-panel { display: none; }
   .result-tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
 
+  /* Attention animation for the Todos Recomendados tab — runs every few seconds while inactive */
+  @keyframes wiggle-pulse {
+    0%, 88%, 100% { transform: scale(1) rotate(0deg); }
+    90% { transform: scale(1.06) rotate(-2deg); }
+    92% { transform: scale(1.06) rotate(2deg); }
+    94% { transform: scale(1.06) rotate(-1.5deg); }
+    96% { transform: scale(1.06) rotate(1.5deg); }
+    98% { transform: scale(1.03) rotate(0deg); }
+  }
+  .result-tab.attention:not(.active) {
+    animation: wiggle-pulse 5s ease-in-out infinite;
+  }
+  .result-tab.attention:not(.active) .tab-count {
+    background: var(--rose);
+    color: var(--white);
+    font-weight: 700;
+  }
+
   /* Match tab type filter strip */
   .match-filter-strip {
     display: flex;
@@ -710,9 +728,10 @@
   .match-filter-chip:hover { border-color: var(--rose-light); color: var(--rose); }
   .match-filter-chip.active { background: var(--rose); color: var(--white); border-color: var(--rose); font-weight: 600; }
 
-  /* Routine slot cards (horizontal layout) */
-  .slot-section { margin-bottom: 18px; }
+  /* Routine slot cards (horizontal layout, supports up to 2 options stacked) */
+  .slot-section { margin-bottom: 22px; }
   .slot-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 8px; padding: 0 2px; }
+  .slot-cards-stack { display: flex; flex-direction: column; gap: 8px; }
   .slot-card {
     background: var(--white);
     border-radius: 14px;
@@ -722,9 +741,30 @@
     box-shadow: 0 2px 12px rgba(44,44,44,0.08);
     cursor: pointer;
     transition: transform 0.18s, box-shadow 0.18s;
+    position: relative;
   }
   .slot-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(44,44,44,0.13); }
+  .slot-card.alt {
+    background: var(--cream);
+    box-shadow: 0 1px 6px rgba(44,44,44,0.06);
+  }
+  .slot-card.alt::before {
+    content: 'Alternativa';
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--mid);
+    background: var(--white);
+    padding: 2px 8px;
+    border-radius: 8px;
+    z-index: 1;
+  }
   .slot-card-img { width: 96px; min-width: 96px; background: var(--cream); overflow: hidden; }
+  .slot-card.alt .slot-card-img { background: var(--white); }
   .slot-card-img img { width: 100%; height: 100%; object-fit: cover; }
   .slot-card-body { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
 
@@ -1065,7 +1105,7 @@
       🌿 Tu Rutina<span class="tab-count" id="routine-count">0</span>
     </button>
     <button class="result-tab" id="tab-matches" onclick="switchResultTab('matches')">
-      🛍️ Recomendados<span class="tab-count" id="matches-count">0</span>
+      🛍️ Todos Recomendados<span class="tab-count" id="matches-count">0</span>
     </button>
   </div>
 
@@ -1181,10 +1221,10 @@ const TYPE_PRIORITY = [
   'Contorno de Ojos',  // eye-specific products lead with eye
   'Aceite Limpiador',  // oil cleansers are more specific than generic Limpiador
   'Mascarilla',
-  'Bruma',
   'Tónico/Esencia',
   'Sérum/Ampolla',
   'Crema',
+  'Bruma',             // demoted below Crema — cream-mist hybrids show as CREMA
   'Limpiador',
 ];
 
@@ -1491,7 +1531,7 @@ const QUIZ_CONCERN_INGREDIENTS = {
 const ROUTINE_SLOTS = {
   basica:     ['Limpiador','Crema'],
   intermedia: ['Limpiador','Sérum/Ampolla','Crema','Protector Solar'],
-  completa:   ['Limpiador','Tónico/Esencia','Sérum/Ampolla','Crema','Contorno de Ojos','Protector Solar','Mascarilla','Aceite Limpiador'],
+  completa:   ['Limpiador','Tónico/Esencia','Sérum/Ampolla','Crema','Contorno de Ojos','Protector Solar','Aceite Limpiador'],
 };
 
 // Friendly labels for result section headers
@@ -1630,39 +1670,88 @@ function showResults() {
     origIdx: PRODUCTS.indexOf(p),
   })).sort((a, b) => b.score - a.score);
 
-  // ── TAB 1: Routine — best product per slot, no repeats ──
+  // ── TAB 1: Routine — up to 2 products per slot, no repeats across slots ──
+  // Rules:
+  //   • Primary must have score >= MIN_VIABLE_SCORE (otherwise it's a poor match — skip the slot).
+  //   • Second option only shown if it exists AND its score is >= 60% of the primary's score
+  //     AND its absolute score is >= MIN_VIABLE_SCORE. Handles thin slots gracefully.
   const usedIdx = new Set();
   const slotResults = [];
+  const SECOND_OPTION_THRESHOLD = 0.6; // 60% of top score
+  const MIN_VIABLE_SCORE = 1; // products scoring 0 or below are poor matches
+
   slots.forEach(slot => {
-    const best = scored.find(p => {
-      if (usedIdx.has(p.origIdx)) return false;
-      if (slot === 'Limpiador') return p.types.includes('Limpiador') || p.types.includes('Aceite Limpiador');
+    const matchesSlot = (p) => {
+      // Limpiador slot = foam/gel/balm cleansers only. Oil cleansers go in their own slot.
+      if (slot === 'Limpiador') return p.types.includes('Limpiador') && !p.types.includes('Aceite Limpiador');
+      if (slot === 'Aceite Limpiador') return p.types.includes('Aceite Limpiador');
       if (slot === 'Crema') return p.types.includes('Crema') && !p.types.includes('Contorno de Ojos');
       if (slot === 'Contorno de Ojos') return p.types.includes('Contorno de Ojos');
       return p.types.includes(slot);
-    });
-    if (best) {
-      usedIdx.add(best.origIdx);
-      slotResults.push({ slot, product: best });
+    };
+
+    // Candidates for this slot, in score order, not used in a prior slot
+    const candidates = scored.filter(p => !usedIdx.has(p.origIdx) && matchesSlot(p));
+    if (!candidates.length) return;
+
+    const primary = candidates[0];
+    if (primary.score < MIN_VIABLE_SCORE) return; // skip slot entirely if best option is poor fit
+    usedIdx.add(primary.origIdx);
+    const products = [primary];
+
+    // Try to add a second option
+    const secondary = candidates[1];
+    if (secondary
+        && secondary.score >= MIN_VIABLE_SCORE
+        && secondary.score >= primary.score * SECOND_OPTION_THRESHOLD) {
+      usedIdx.add(secondary.origIdx);
+      products.push(secondary);
     }
+
+    slotResults.push({ slot, products });
   });
 
   // ── TAB 2: All compatible products (skin + sensitive + concern match) ──
-  const allMatches = scored.filter(p => {
+  // Curation: products are score-ranked, then we keep only those that score at least
+  // 40% of the top product's score, capped at 12 total. This avoids surfacing weak matches
+  // that happen to share one common ingredient (e.g., hialurónico) with the user's concerns.
+  // After capping, we top up with the best available product from each missing core type
+  // (provided it still passes the relative threshold), so users see at least one option per category.
+  const RECOMMENDED_REL_THRESHOLD = 0.4; // ≥40% of top score
+  const RECOMMENDED_MAX_COUNT = 12;       // hard cap before top-up
+  const CORE_TYPES = ['Limpiador','Tónico/Esencia','Sérum/Ampolla','Crema','Contorno de Ojos','Protector Solar','Aceite Limpiador','Mascarilla'];
+
+  const candidates = scored.filter(p => {
     if (!p.description || p.description === 'nan') return false;
-    const skinOk = p.skinTypes.includes(skin) || p.skinTypes.includes('Todo Tipo');
-    if (!skinOk) return false; // must match skin type
-    if (concerns.length === 0) return true; // no concerns selected → show all skin-matched
-    const sensitiveOk = isSensitive && p.skinTypes.includes('Piel Sensible');
-    const concernOk = concerns.some(key => {
-      const rule = QUIZ_CONCERN_INGREDIENTS[key];
-      if (!rule) return false;
-      return rule.ingredients.some(i => p.activeIngredients.includes(i)) ||
-             (rule.types || []).some(t => p.types.includes(t)) ||
-             rule.skinTypes.some(s => p.skinTypes.includes(s));
-    });
-    return concernOk || sensitiveOk;
+    return p.skinTypes.includes(skin) || p.skinTypes.includes('Todo Tipo'); // must match skin type
   });
+
+  let allMatches = [];
+  if (candidates.length) {
+    const topScore = candidates[0].score;
+    if (topScore > 0) {
+      const minScore = topScore * RECOMMENDED_REL_THRESHOLD;
+      const passing = candidates.filter(p => p.score >= minScore);
+      allMatches = passing.slice(0, RECOMMENDED_MAX_COUNT);
+
+      // Top-up: ensure each core product type has at least one representative.
+      // For each missing type, find the best-scoring candidate of that type from the
+      // full passing list (not just the top 12), and append if not already included.
+      const includedIdx = new Set(allMatches.map(p => p.origIdx));
+      const typesPresent = new Set();
+      allMatches.forEach(p => p.types.forEach(t => typesPresent.add(t)));
+
+      CORE_TYPES.forEach(t => {
+        if (typesPresent.has(t)) return;
+        const filler = passing.find(p => !includedIdx.has(p.origIdx) && p.types.includes(t));
+        if (filler) {
+          allMatches.push(filler);
+          includedIdx.add(filler.origIdx);
+          filler.types.forEach(tt => typesPresent.add(tt));
+        }
+      });
+    }
+  }
 
   // ── Profile tags ──
   const concernLabels = concerns.map(k => ALL_CONCERNS.find(c => c.key === k)).filter(Boolean);
@@ -1672,25 +1761,25 @@ function showResults() {
     concernLabels.map(c => `<span class="profile-tag">${c.icon} ${c.label}</span>`).join('') +
     `<span class="profile-tag">${routine === 'basica' ? '🌱 Rutina básica' : routine === 'intermedia' ? '🌿 Rutina intermedia' : '🌳 Rutina completa'}</span>`;
 
+  // Total products across all slots (counting alternatives too)
+  const totalRoutineProducts = slotResults.reduce((sum, s) => sum + s.products.length, 0);
+
   document.getElementById('results-subtitle').textContent =
-    `${slotResults.length} pasos en tu rutina · ${allMatches.length} productos compatibles`;
+    `${slotResults.length} pasos · ${totalRoutineProducts} productos · ${allMatches.length} compatibles`;
 
   // ── Tab counts ──
-  document.getElementById('routine-count').textContent = slotResults.length;
+  document.getElementById('routine-count').textContent = totalRoutineProducts;
   document.getElementById('matches-count').textContent = allMatches.length;
 
-  // ── Render routine slots ──
+  // ── Render routine slots (with up to 2 products per slot) ──
   const sectionsEl = document.getElementById('results-sections');
   sectionsEl.innerHTML = '';
-  slotResults.forEach(({ slot, product: p }) => {
-    const meta = SLOT_LABELS[slot] || { icon: '🧴', label: slot };
+
+  const renderSlotCard = (p, isAlt) => {
     const imgSrc = p.image && p.image !== 'nan' ? p.image : '';
     const reasonHTML = buildReasonTag(p, skin, isSensitive, concerns);
-    const section = document.createElement('div');
-    section.className = 'slot-section';
-    section.innerHTML = `
-      <div class="slot-label">${meta.icon} ${meta.label}</div>
-      <div class="slot-card" onclick="openModal(${p.origIdx})">
+    return `
+      <div class="slot-card${isAlt ? ' alt' : ''}" onclick="openModal(${p.origIdx})">
         <div class="slot-card-img">
           ${imgSrc
             ? `<img src="${imgSrc}" alt="${p.name}" onerror="this.parentElement.style.background='var(--rose-light)';this.remove()">`
@@ -1703,6 +1792,18 @@ function showResults() {
         </div>
       </div>
     `;
+  };
+
+  slotResults.forEach(({ slot, products }) => {
+    const meta = SLOT_LABELS[slot] || { icon: '🧴', label: slot };
+    const section = document.createElement('div');
+    section.className = 'slot-section';
+    section.innerHTML = `
+      <div class="slot-label">${meta.icon} ${meta.label}${products.length > 1 ? ' · 2 opciones' : ''}</div>
+      <div class="slot-cards-stack">
+        ${products.map((p, i) => renderSlotCard(p, i > 0)).join('')}
+      </div>
+    `;
     sectionsEl.appendChild(section);
   });
 
@@ -1710,7 +1811,7 @@ function showResults() {
   const matchGrid = document.getElementById('results-match-grid');
   matchGrid.innerHTML = '';
   document.getElementById('matches-desc').textContent =
-    `Productos recomendados para ${skin}, ordenados por compatibilidad. Los incluidos en tu rutina están marcados.`;
+    `Los ${allMatches.length} productos más compatibles con tu perfil, ordenados por afinidad. Los incluidos en tu rutina están marcados.`;
 
   allMatches.forEach(p => {
     const typeLabel = primaryType(p.types);
@@ -1745,6 +1846,8 @@ function showResults() {
   });
   document.getElementById('match-empty').style.display = 'none';
   document.getElementById('results-match-grid').style.display = 'grid';
+  // Add attention animation to the Todos Recomendados tab — drops off once user clicks it
+  document.getElementById('tab-matches').classList.add('attention');
   switchView('results');
 }
 
@@ -1753,6 +1856,10 @@ function switchResultTab(tab) {
   document.getElementById('tab-matches').className  = 'result-tab'  + (tab === 'matches'  ? ' active' : '');
   document.getElementById('panel-routine').className = 'result-tab-panel' + (tab === 'routine'  ? ' active' : '');
   document.getElementById('panel-matches').className = 'result-tab-panel' + (tab === 'matches'  ? ' active' : '');
+  // Once the user has visited the matches tab, stop the attention animation permanently
+  if (tab === 'matches') {
+    document.getElementById('tab-matches').classList.remove('attention');
+  }
 }
 
 function filterMatchGrid(type) {
