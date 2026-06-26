@@ -1866,14 +1866,25 @@ function showResults() {
 
   // Track quiz completion in GA4
   if (typeof gtag === 'function') {
+    // Build per-concern booleans so each concern is independently reportable in GA4.
+    // (The raw `concerns` comma-string is also kept, useful for spotting popular combinations.)
+    const ALL_CONCERN_KEYS = ['acne','manchas','arrugas','hidratacion','poros','rojeces','brillo','barrera','ojeras','sol'];
+    const concernFlags = {};
+    ALL_CONCERN_KEYS.forEach(k => {
+      concernFlags['concern_' + k] = concerns.includes(k) ? 'sí' : 'no';
+    });
+
+    const ROUTINE_LABELS = { basica: 'Básica', intermedia: 'Intermedia', completa: 'Completa' };
+
     gtag('event', 'quiz_completed', {
       skin_type: skin,
-      is_sensitive: isSensitive,
-      concerns: concerns.join(','),
+      is_sensitive: isSensitive ? 'sí' : 'no',
+      concerns: concerns.slice().sort().join(','), // sorted so "acne,manchas" == "manchas,acne"
       concern_count: concerns.length,
-      routine_level: routine,
+      routine_level: ROUTINE_LABELS[routine] || routine,
       routine_products: totalRoutineProducts,
       recommendations: allMatches.length,
+      ...concernFlags,
     });
   }
 }
