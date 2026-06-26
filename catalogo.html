@@ -843,6 +843,15 @@
   /* image fallback */
   img.broken { display: none; }
 </style>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5XXGXDE227"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5XXGXDE227');
+</script>
 </head>
 <body>
 
@@ -1419,6 +1428,11 @@ function showQuiz() {
     if (s) s.className = 'quiz-step' + (i === 0 ? ' active' : '');
   }
   switchView('quiz');
+
+  // Track quiz start in GA4 (to measure completion rate later)
+  if (typeof gtag === 'function') {
+    gtag('event', 'quiz_started');
+  }
 }
 
 function toggleSensitive() {
@@ -1849,6 +1863,19 @@ function showResults() {
   // Add attention animation to the Todos Recomendados tab — drops off once user clicks it
   document.getElementById('tab-matches').classList.add('attention');
   switchView('results');
+
+  // Track quiz completion in GA4
+  if (typeof gtag === 'function') {
+    gtag('event', 'quiz_completed', {
+      skin_type: skin,
+      is_sensitive: isSensitive,
+      concerns: concerns.join(','),
+      concern_count: concerns.length,
+      routine_level: routine,
+      routine_products: totalRoutineProducts,
+      recommendations: allMatches.length,
+    });
+  }
 }
 
 function switchResultTab(tab) {
