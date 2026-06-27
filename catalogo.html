@@ -1880,10 +1880,14 @@ function showResults() {
       skin_type: skin,
       is_sensitive: isSensitive ? 'sí' : 'no',
       concerns: concerns.slice().sort().join(','), // sorted so "acne,manchas" == "manchas,acne"
+      // Numeric values sent twice — once for dimension (group/filter), once for metric (avg/sum)
       concern_count: concerns.length,
+      concern_count_m: concerns.length,
       routine_level: ROUTINE_LABELS[routine] || routine,
       routine_products: totalRoutineProducts,
+      routine_products_m: totalRoutineProducts,
       recommendations: allMatches.length,
+      recommendations_m: allMatches.length,
       ...concernFlags,
     });
   }
