@@ -279,9 +279,8 @@ const SKIN_CONCERN_PRIORITY = {
 function showQuiz() {
   quizAnswers = { skinType: null, isSensitive: false, concerns: [], routine: null };
   currentStep = 0;
-  document.getElementById('next-0').disabled = true;
+  clearTimeout(autoAdvanceTimer);
   document.getElementById('next-1').disabled = true;
-  document.getElementById('next-2').disabled = true;
   // Reset sensitive toggle
   const toggle = document.getElementById('sensitive-toggle');
   if (toggle) { toggle.className = 'sensitive-toggle'; document.getElementById('sensitive-check-icon').textContent = ''; }
@@ -302,6 +301,13 @@ function showQuiz() {
   }
 }
 
+// STEP 0 (skin type) and STEP 2 (routine) are single-select, so picking
+// an option auto-advances after a brief pause (long enough to see the
+// selection highlight, short enough to feel instant). The sensitive-skin
+// toggle lives outside the step cards entirely — see the HTML — so it's
+// never at risk of being skipped by this auto-advance.
+let autoAdvanceTimer = null;
+
 function toggleSensitive() {
   quizAnswers.isSensitive = !quizAnswers.isSensitive;
   const toggle = document.getElementById('sensitive-toggle');
@@ -315,7 +321,8 @@ function selectSkinType(value, el) {
   el.className = 'quiz-opt selected';
   quizAnswers.skinType = value;
   quizAnswers.concerns = []; // reset if they go back and change
-  document.getElementById('next-0').disabled = false;
+  clearTimeout(autoAdvanceTimer);
+  autoAdvanceTimer = setTimeout(() => goStep(1), 400);
 }
 
 function buildConcernOptions(skinType) {
@@ -363,10 +370,12 @@ function selectRoutine(value, el) {
   document.querySelectorAll('#step-2 .quiz-opt').forEach(o => o.className = 'quiz-opt');
   el.className = 'quiz-opt selected';
   quizAnswers.routine = value;
-  document.getElementById('next-2').disabled = false;
+  clearTimeout(autoAdvanceTimer);
+  autoAdvanceTimer = setTimeout(() => showResults(), 400);
 }
 
 function goStep(step) {
+  clearTimeout(autoAdvanceTimer);
   // When entering step 1, build the adaptive concern options
   if (step === 1 && quizAnswers.skinType) {
     buildConcernOptions(quizAnswers.skinType);
