@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo Skincare – Farmacias Roma</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="catalog-style.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5XXGXDE227"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5XXGXDE227');
+</script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <img src="https://farmaciasroma.com/wp-content/uploads/2025/06/Logotipo-Farmacias-Roma-2025-1536x903.png" alt="Farmacias Roma" onerror="this.style.display='none'">
+  </div>
+  <div class="header-title">
+    Skincare Coreano
+    <span>Catálogo 2026</span>
+  </div>
+</header>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-item active" id="nav-catalog" onclick="switchView('catalog')">
+    <span class="nav-icon">🛍️</span>Catálogo
+  </button>
+  <button class="nav-item" id="nav-quiz" onclick="showQuiz()">
+    <span class="nav-icon">✨</span>Mi Rutina
+  </button>
+  <button class="nav-item" id="nav-brands" onclick="switchView('brands')">
+    <span class="nav-icon">🏷️</span>Marcas
+  </button>
+</div>
+
+<div class="main-content">
+
+<!-- HERO -->
+<div class="hero" id="hero-section">
+  <h1><em>Skincare coreano</em> para tu piel</h1>
+  <p>K-Beauty seleccionado para cada tipo de piel.</p>
+  <p class="hero-quiz-prompt">👇 Haz clic aquí para descubrir tu rutina 👇</p>
+  <button class="hero-quiz-btn" onclick="showQuiz()">✨ Encuentra tu rutina ideal</button>
+</div>
+
+<!-- CATALOG SECTION -->
+<div id="catalog-section">
+  <div class="catalog-section-header">
+    <span class="catalog-section-line"></span>
+    <span class="catalog-section-title">📋 Catálogo completo</span>
+    <span class="catalog-section-line"></span>
+  </div>
+  <div class="filters-wrap">
+    <div class="filters-title">🔍 Filtrar productos</div>
+
+    <div class="filter-group" style="margin-bottom: 20px;">
+      <div class="filter-group-label">Tipo de Piel</div>
+      <div class="chips" id="skin-chips">
+        <div class="chip" onclick="toggleFilter('skin','Piel Seca')">Piel Seca</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel Grasa')">Piel Grasa</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel Mixta')">Piel Mixta</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel Sensible')">Piel Sensible</div>
+        <div class="chip" onclick="toggleFilter('skin','Piel Normal')">Piel Normal</div>
+      </div>
+    </div>
+
+    <div class="filter-group" style="margin-bottom: 20px;">
+      <div class="filter-group-label">Preocupación</div>
+      <div class="chips" id="concern-chips">
+        <div class="chip" onclick="toggleFilter('concern','acne')">🎯 Acné</div>
+        <div class="chip" onclick="toggleFilter('concern','manchas')">☀️ Manchas</div>
+        <div class="chip" onclick="toggleFilter('concern','arrugas')">⏳ Arrugas</div>
+        <div class="chip" onclick="toggleFilter('concern','hidratacion')">💧 Hidratación</div>
+        <div class="chip" onclick="toggleFilter('concern','poros')">🔍 Poros</div>
+        <div class="chip" onclick="toggleFilter('concern','rojeces')">🌿 Rojeces</div>
+        <div class="chip" onclick="toggleFilter('concern','brillo')">✨ Brillo</div>
+        <div class="chip" onclick="toggleFilter('concern','barrera')">🛡️ Barrera</div>
+        <div class="chip" onclick="toggleFilter('concern','ojeras')">👁️ Ojos</div>
+        <div class="chip" onclick="toggleFilter('concern','sol')">🌞 Solar</div>
+      </div>
+    </div>
+
+    <!-- Dropdowns row -->
+    <div style="position:relative;padding-top:16px;margin-top:16px;border-top:1px solid var(--light);">
+    <div class="filter-group-label" style="margin-bottom:8px;margin-top:0;">Filtros avanzados</div>
+    <div class="dropdown-row">
+      <!-- Tipo de Producto dropdown -->
+      <div class="dd-wrap" id="dd-type-wrap">
+        <button class="dd-btn" id="dd-type-btn" onclick="toggleDropdown('type')">
+          <span id="dd-type-label">Tipo de producto</span>
+          <span class="dd-arrow">▾</span>
+          <span class="dd-badge" id="dd-type-badge"></span>
+        </button>
+        <div class="dd-panel" id="dd-type-panel">
+          <div class="dd-option" data-val="Crema" onclick="toggleTypeFilter('Crema')">Crema</div>
+          <div class="dd-option" data-val="Sérum/Ampolla" onclick="toggleTypeFilter('Sérum/Ampolla')">Sérum / Ampolla</div>
+          <div class="dd-option" data-val="Limpiador" onclick="toggleTypeFilter('Limpiador')">Limpiador</div>
+          <div class="dd-option" data-val="Aceite Limpiador" onclick="toggleTypeFilter('Aceite Limpiador')">Aceite Limpiador</div>
+          <div class="dd-option" data-val="Tónico/Esencia" onclick="toggleTypeFilter('Tónico/Esencia')">Tónico / Esencia</div>
+          <div class="dd-option" data-val="Protector Solar" onclick="toggleTypeFilter('Protector Solar')">Protector Solar</div>
+          <div class="dd-option" data-val="Mascarilla" onclick="toggleTypeFilter('Mascarilla')">Mascarilla</div>
+          <div class="dd-option" data-val="Contorno de Ojos" onclick="toggleTypeFilter('Contorno de Ojos')">Contorno de Ojos</div>
+          <div class="dd-option" data-val="Bruma" onclick="toggleTypeFilter('Bruma')">Bruma</div>
+        </div>
+      </div>
+
+      <!-- Ingrediente Activo dropdown -->
+      <div class="dd-wrap" id="dd-ing-wrap">
+        <button class="dd-btn" id="dd-ing-btn" onclick="toggleDropdown('ing')">
+          <span id="dd-ing-label">Ingrediente activo</span>
+          <span class="dd-arrow">▾</span>
+          <span class="dd-badge" id="dd-ing-badge"></span>
+        </button>
+        <div class="dd-panel" id="dd-ing-panel"></div>
+      </div>
+    </div>
+    </div>
+
+    <button class="filter-reset" onclick="resetFilters()">Limpiar filtros</button>
+  </div>
+
+<div class="count-bar">
+    <div class="count-text" id="count-text">41 productos</div>
+  </div>
+
+  <div class="product-grid" id="product-grid"></div>
+  <div class="empty-state" id="empty-state">
+    <h3>Sin resultados 🌸</h3>
+    <p>Prueba con otros filtros</p>
+    <button class="filter-reset" style="margin-top:12px;font-size:0.84rem;" onclick="resetFilters()">Ver todos los productos</button>
+  </div>
+</div>
+
+<!-- BRANDS SECTION -->
+<div id="brands-section" style="display:none;padding:20px 16px 40px;">
+  <div style="margin-bottom:20px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:6px;">Nuestras Marcas</h2>
+    <p style="font-size:0.83rem;color:var(--mid);">Selecciona una marca para ver sus productos</p>
+  </div>
+  <div id="brands-grid" style="display:grid;gap:14px;"></div>
+</div>
+
+<!-- QUIZ SECTION -->
+<div id="quiz-section">
+  <div class="quiz-card">
+    <div class="quiz-header">
+      <div style="font-size:2rem;margin-bottom:10px;">🌿</div>
+      <h2>Test de Piel</h2>
+      <p>3 preguntas rápidas para encontrar los productos perfectos para ti.</p>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step-dot active" id="dot-0"></div>
+      <div class="step-dot" id="dot-1"></div>
+      <div class="step-dot" id="dot-2"></div>
+    </div>
+    <div style="text-align:center;font-size:0.72rem;color:var(--mid);margin-bottom:18px;" id="step-label">Paso 1 de 3</div>
+
+    <!-- STEP 1: SKIN TYPE -->
+    <div class="quiz-step active" id="step-0">
+      <div class="quiz-q">¿Cómo describirías tu piel?</div>
+      <div class="quiz-sub">Elige tu tipo base de piel</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="selectSkinType('Piel Seca', this)">
+          <span class="opt-icon">🏜️</span>
+          <span class="opt-text">
+            <span class="opt-label">Piel Seca</span>
+            <span class="opt-desc">Se siente tirante, áspera o con descamación. Le cuesta retener la humedad.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectSkinType('Piel Grasa', this)">
+          <span class="opt-icon">💦</span>
+          <span class="opt-text">
+            <span class="opt-label">Piel Grasa</span>
+            <span class="opt-desc">Brillo constante, poros visibles, tendencia a granitos e imperfecciones.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectSkinType('Piel Mixta', this)">
+          <span class="opt-icon">⚖️</span>
+          <span class="opt-text">
+            <span class="opt-label">Piel Mixta</span>
+            <span class="opt-desc">Zona T (frente, nariz, barbilla) grasa; mejillas normales o secas.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectSkinType('Piel Normal', this)">
+          <span class="opt-icon">🌤️</span>
+          <span class="opt-text">
+            <span class="opt-label">Piel Normal</span>
+            <span class="opt-desc">Equilibrada, sin exceso de grasa ni sequedad. Pocas molestias.</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Sensitive toggle -->
+      <div class="sensitive-toggle" id="sensitive-toggle" onclick="toggleSensitive()">
+        <div class="sensitive-checkbox" id="sensitive-checkbox">
+          <span id="sensitive-check-icon"></span>
+        </div>
+        <div class="sensitive-toggle-text">
+          <span class="sensitive-label">Mi piel también es sensible o reactiva</span>
+          <span class="sensitive-desc">Se irrita con facilidad ante nuevos productos o factores externos</span>
+        </div>
+      </div>
+
+      <div class="quiz-nav">
+        <span></span>
+        <button class="quiz-next" id="next-0" disabled onclick="goStep(1)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: CONCERNS (rendered dynamically based on skin type) -->
+    <div class="quiz-step" id="step-1">
+      <div class="quiz-q">¿Qué quieres mejorar en tu piel?</div>
+      <div class="quiz-sub">Puedes elegir hasta 3 opciones</div>
+      <div class="quiz-options" id="concerns-options"></div>
+      <div class="quiz-multi-note">Las más relevantes para tu tipo de piel aparecen primero</div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="goStep(0)">← Atrás</button>
+        <button class="quiz-next" id="next-1" disabled onclick="goStep(2)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: ROUTINE LEVEL -->
+    <div class="quiz-step" id="step-2">
+      <div class="quiz-q">¿Cómo es tu rutina de cuidado?</div>
+      <div class="quiz-sub">Esto nos ayuda a sugerirte los pasos adecuados</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" onclick="selectRoutine('basica', this)">
+          <span class="opt-icon">🌱</span>
+          <span class="opt-text">
+            <span class="opt-label">Básica</span>
+            <span class="opt-desc">Limpiador + hidratante. Quiero algo sencillo y efectivo.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectRoutine('intermedia', this)">
+          <span class="opt-icon">🌿</span>
+          <span class="opt-text">
+            <span class="opt-label">Intermedia</span>
+            <span class="opt-desc">Ya uso varios productos y quiero incorporar tratamientos específicos.</span>
+          </span>
+        </div>
+        <div class="quiz-opt" onclick="selectRoutine('completa', this)">
+          <span class="opt-icon">🌳</span>
+          <span class="opt-text">
+            <span class="opt-label">Completa</span>
+            <span class="opt-desc">Me gusta el skincare en capas: tónico, sérum, crema y protector solar.</span>
+          </span>
+        </div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="goStep(1)">← Atrás</button>
+        <button class="quiz-next" id="next-2" disabled onclick="showResults()">Ver mis productos →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS SECTION -->
+<div id="quiz-results">
+  <div class="results-header">
+    <div style="font-size:2rem;margin-bottom:8px;">🎯</div>
+    <h2>Tu resultado</h2>
+    <p id="results-subtitle">Basado en tu tipo de piel y preocupaciones</p>
+  </div>
+  <div class="results-profile" id="results-profile"></div>
+
+  <div style="text-align:center;margin-bottom:16px;">
+    <button onclick="retakeQuiz()" style="background:none;border:none;font-size:0.78rem;color:var(--mid);cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:underline;text-underline-offset:3px;">↺ Repetir el test</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="result-tabs">
+    <button class="result-tab active" id="tab-routine" onclick="switchResultTab('routine')">
+      🌿 Tu Rutina<span class="tab-count" id="routine-count">0</span>
+    </button>
+    <button class="result-tab" id="tab-matches" onclick="switchResultTab('matches')">
+      🛍️ Todos Recomendados<span class="tab-count" id="matches-count">0</span>
+    </button>
+  </div>
+
+  <!-- Tab: Routine -->
+  <div class="result-tab-panel active" id="panel-routine">
+    <div id="results-sections"></div>
+  </div>
+
+  <!-- Tab: All matching products -->
+  <div class="result-tab-panel" id="panel-matches">
+    <div style="font-size:0.78rem;color:var(--mid);margin-bottom:12px;line-height:1.5;" id="matches-desc"></div>
+    <!-- Type filter strip -->
+    <div class="match-filter-strip" id="match-type-filter">
+      <button class="match-filter-chip active" data-type="all" onclick="filterMatchGrid('all')">Todos</button>
+      <button class="match-filter-chip" data-type="Limpiador" onclick="filterMatchGrid('Limpiador')">Limpiador</button>
+      <button class="match-filter-chip" data-type="Tónico/Esencia" onclick="filterMatchGrid('Tónico/Esencia')">Tónico</button>
+      <button class="match-filter-chip" data-type="Sérum/Ampolla" onclick="filterMatchGrid('Sérum/Ampolla')">Sérum</button>
+      <button class="match-filter-chip" data-type="Crema" onclick="filterMatchGrid('Crema')">Crema</button>
+      <button class="match-filter-chip" data-type="Protector Solar" onclick="filterMatchGrid('Protector Solar')">Protector Solar</button>
+      <button class="match-filter-chip" data-type="Mascarilla" onclick="filterMatchGrid('Mascarilla')">Mascarilla</button>
+      <button class="match-filter-chip" data-type="Contorno de Ojos" onclick="filterMatchGrid('Contorno de Ojos')">Ojos</button>
+      <button class="match-filter-chip" data-type="Aceite Limpiador" onclick="filterMatchGrid('Aceite Limpiador')">Aceite</button>
+    </div>
+    <div class="match-grid" id="results-match-grid"></div>
+    <div id="match-empty" style="display:none;text-align:center;padding:30px 0;color:var(--mid);font-size:0.85rem;">No hay productos de este tipo entre tus resultados.</div>
+  </div>
+
+  <div class="results-actions">
+    <button class="retake-btn" onclick="retakeQuiz()">↺ Repetir el test de piel</button>
+    <button class="browse-all-btn" onclick="switchView('catalog'); resetFilters();">Ver catálogo completo</button>
+  </div>
+</div>
+
+</div><!-- /main-content -->
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-img-wrap" style="position:relative;">
+      <img id="modal-img" alt="">
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-brand" id="modal-brand"></div>
+      <div class="modal-name" id="modal-name"></div>
+      
+      <div class="modal-section-title">Tipo de Producto</div>
+      <div class="modal-chips" id="modal-types"></div>
+      
+      <div class="modal-section-title">Tipo de Piel</div>
+      <div class="modal-chips" id="modal-skins"></div>
+      
+      <div class="modal-section-title">Ingredientes Activos</div>
+      <div class="modal-chips" id="modal-ingredients"></div>
+
+      <div class="modal-section-title">Descripción</div>
+      <div class="modal-desc" id="modal-desc"></div>
+
+      <div class="modal-section-title">Ingredientes completos</div>
+      <div id="modal-ing-wrap" style="display:none;">
+        <div class="modal-ingredients" id="modal-ing-full"></div>
+      </div>
+      <button class="modal-ingredients-toggle" id="modal-ing-btn" onclick="toggleIngredients()">Ver ingredientes completos ▼</button>
+
+      <div id="modal-reviews-wrap" style="display:none;">
+        <div class="modal-section-title">📱 Reseñas y Videos</div>
+        <div class="reviews-btn-row" id="modal-reviews-buttons"></div>
+        <div class="reviews-embed" id="modal-reviews-embed"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- "STILL THERE?" IDLE WARNING (shows after IDLE_WARNING_MS of no clicks) -->
+<div class="idle-warning-overlay" id="idle-warning-overlay">
+  <div class="idle-warning-card">
+    <div class="idle-warning-emoji">👋</div>
+    <div class="idle-warning-title">¿Sigues ahí?</div>
+    <div class="idle-warning-text">Volveremos a la pantalla principal en unos segundos si no hay actividad.</div>
+    <button class="idle-warning-btn" onclick="resetIdleTimers()">Sí, sigo aquí</button>
+  </div>
+</div>
+
+<!-- IDLE SCREENSAVER (shows IDLE_RESET_MS after the warning, if still no clicks) -->
+<div class="idle-screensaver" id="idle-screensaver">
+  <video id="idle-video" muted loop playsinline></video>
+  <div class="idle-screensaver-fallback" id="idle-screensaver-fallback">
+    <img src="https://farmaciasroma.com/wp-content/uploads/2025/06/Logotipo-Farmacias-Roma-2025-1536x903.png" alt="" class="idle-screensaver-logo">
+    <div class="idle-screensaver-title"><em>Skincare coreano</em> para tu piel</div>
+  </div>
+  <div class="idle-screensaver-hint">✨ Toca la pantalla para comenzar</div>
+</div>
+
+<script>const KIOSK_MODE = false;</script>
+<script src="catalog-data.js"></script>
+<script src="catalog-app.js"></script>
+</body>
+</html>
