@@ -1,0 +1,39 @@
+name: Update review thumbnails
+
+# Keeps review-thumbs.js fresh automatically — no need to remember to run
+# the script by hand. Runs weekly, and can also be triggered manually from
+# the Actions tab (the "Run workflow" button) any time you add new review
+# URLs to catalog-data.js and want the thumbnails/dead-link check to run
+# right away instead of waiting for the schedule.
+on:
+  schedule:
+    - cron: '0 9 * * 1' # every Monday, 09:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch review thumbnails / check for dead links
+        run: node scripts/update-review-thumbnails.mjs
+
+      - name: Commit review-thumbs.js if it changed
+        run: |
+          if git diff --quiet -- review-thumbs.js; then
+            echo "No changes — nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add review-thumbs.js
+          git commit -m "Update review thumbnails [automated]"
+          git push

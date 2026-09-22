@@ -208,35 +208,68 @@ function reviewHandle(url) {
   return m ? '@' + m[1] : '';
 }
 
+// ── REVIEW TILES — thumbnails + dead-link filtering ─────────────────
+// The real preview image (and whether a video is still embeddable at
+// all) comes from TikTok's oEmbed API. That API doesn't allow being
+// called from a browser (no CORS headers), so it's NOT fetched live
+// here — it's pre-fetched offline by scripts/update-review-thumbnails.mjs
+// (run by hand, or on a schedule via the paired GitHub Action) and
+// baked into review-thumbs.js as the REVIEW_THUMBS lookup, loaded
+// before this file. That keeps the tablet/QR pages fast and reliable
+// regardless of what the local wifi can or can't reach.
+//
+// If review-thumbs.js hasn't been generated yet (or is missing a URL
+// that was just added to catalog-data.js), this degrades gracefully:
+// REVIEW_THUMBS[url] is just undefined, so the tile falls back to the
+// plain icon + handle look and is never treated as dead.
+function reviewThumbInfo(url) {
+  if (typeof REVIEW_THUMBS === 'undefined') return null;
+  return REVIEW_THUMBS[url] || null;
+}
+
 function renderReviews(reviews) {
   const wrap = document.getElementById('modal-reviews-wrap');
   const strip = document.getElementById('modal-reviews-strip');
 
-  if (!reviews.length) {
+  // Only reviews TikTok has explicitly confirmed are gone get filtered
+  // out — anything unchecked (info === null) is shown as normal.
+  const visibleReviews = reviews.filter(r => reviewThumbInfo(r.url)?.dead !== true);
+
+  if (!visibleReviews.length) {
     wrap.style.display = 'none';
     strip.innerHTML = '';
     return;
   }
 
   wrap.style.display = 'block';
-  strip.innerHTML = reviews.map((r, i) => {
+  strip.innerHTML = visibleReviews.map((r) => {
     const icon = r.platform === 'tiktok' ? '🎵' : '📷';
     const handle = reviewHandle(r.url);
+    const info = reviewThumbInfo(r.url);
+    const bgStyle = info?.thumb
+      ? ` style="background-image:linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0.05) 55%), url('${info.thumb}')"`
+      : '';
     const inner = `
       <div class="review-tile-play">${icon}</div>
       <div class="review-tile-handle">${handle}</div>`;
     if (KIOSK_MODE) {
-      return `<div class="review-tile" onclick="showReview('${r.platform}', '${r.url}')">${inner}</div>`;
+      return `<div class="review-tile" onclick="showReview('${r.platform}', '${r.url}')"${bgStyle}>${inner}</div>`;
     }
-    return `<a class="review-tile" href="${r.url}" target="_blank" rel="noopener">${inner}</a>`;
+    return `<a class="review-tile" href="${r.url}" target="_blank" rel="noopener"${bgStyle}>${inner}</a>`;
   }).join('');
+}
+
+function tiktokVideoId(url) {
+  const m = url.match(/\/video\/(\d+)/);
+  return m ? m[1] : '';
 }
 
 // Builds the embed markup shared by both the (now-unused on QR) inline
 // embed and the tablet's full-screen player.
 function buildEmbedHtml(platform, url) {
   if (platform === 'tiktok') {
-    return `<blockquote class="tiktok-embed" cite="${url}" style="max-width:325px;min-width:280px;"><section></section></blockquote>`;
+    const vid = tiktokVideoId(url);
+    return `<blockquote class="tiktok-embed" cite="${url}"${vid ? ` data-video-id="${vid}"` : ''} style="max-width:325px;min-width:280px;"><section></section></blockquote>`;
   }
   return `<blockquote class="instagram-media" data-instgrm-permalink="${url}" style="width:100%;max-width:400px;margin:0;"></blockquote>`;
 }
@@ -298,6 +331,11 @@ function switchView(view) {
   document.getElementById('quiz-results').style.display = view === 'results' ? 'block' : 'none';
   document.getElementById('brands-section').style.display = view === 'brands' ? 'block' : 'none';
   document.getElementById('hero-section').style.display = (view === 'catalog') ? 'block' : 'none';
+  // The site header eats a lot of vertical space on phones — hidden during
+  // the quiz/results flow so quiz options start near the top of the screen
+  // instead of below the fold. Still shown for the catalog and brands views.
+  const headerEl = document.querySelector('header');
+  if (headerEl) headerEl.style.display = (view === 'quiz' || view === 'results') ? 'none' : 'flex';
   
   document.getElementById('nav-catalog').className = 'nav-item' + (view === 'catalog' ? ' active' : '');
   document.getElementById('nav-quiz').className = 'nav-item' + (view === 'quiz' || view === 'results' ? ' active' : '');
@@ -1337,7 +1375,11 @@ function resetIdleTimers() {
   scheduleIdleWarning();
 }
 
-document.addEventListener('click', resetIdleTimers);
+// KIOSK_MODE only. This used to be unconditional, which meant a tap
+// anywhere on the *QR* page (KIOSK_MODE false) still armed the idle
+// timer below — after ~70s of no further taps it reset the page and
+// showed the tablet's attract screen to a shopper on their own phone.
+if (KIOSK_MODE) document.addEventListener('click', resetIdleTimers);
 
 // ── IDLE PAUSE WHILE A REVIEW VIDEO IS PLAYING (kiosk only) ────────
 // Taps inside the embedded TikTok/Instagram player happen in a

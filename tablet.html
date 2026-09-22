@@ -159,9 +159,9 @@
 <div id="quiz-section">
   <div class="quiz-card">
     <div class="quiz-header">
-      <div style="font-size:2rem;margin-bottom:10px;">🌿</div>
+      <div class="quiz-header-emoji">🌿</div>
       <h2>Test de Piel</h2>
-      <p>3 preguntas rápidas para encontrar los productos perfectos para ti.</p>
+      <p>3 preguntas rápidas para tus productos ideales.</p>
     </div>
 
     <div class="step-indicator">
@@ -169,18 +169,12 @@
       <div class="step-dot" id="dot-1"></div>
       <div class="step-dot" id="dot-2"></div>
     </div>
-    <div style="text-align:center;font-size:0.72rem;color:var(--mid);margin-bottom:18px;" id="step-label">Paso 1 de 3</div>
-
-    <!-- Sensitive toggle — lives outside the step cards on purpose, so it's
-         visible on every step and never gets skipped when a step auto-advances -->
-    <div class="sensitive-toggle" id="sensitive-toggle" onclick="toggleSensitive()">
-      <div class="sensitive-checkbox" id="sensitive-checkbox">
-        <span id="sensitive-check-icon"></span>
-      </div>
-      <div class="sensitive-toggle-text">
-        <span class="sensitive-label">Mi piel también es sensible o reactiva</span>
-        <span class="sensitive-desc">Se irrita con facilidad ante nuevos productos o factores externos</span>
-      </div>
+    <div class="step-label-row">
+      <span id="step-label">Paso 1 de 3</span>
+      <label class="sensitive-toggle" id="sensitive-toggle" onclick="toggleSensitive()">
+        <span class="sensitive-checkbox" id="sensitive-checkbox"><span id="sensitive-check-icon"></span></span>
+        <span class="sensitive-label">¿Piel sensible?</span>
+      </label>
     </div>
 
     <!-- STEP 1: SKIN TYPE -->
@@ -392,6 +386,7 @@
 
 <script>const KIOSK_MODE = true;</script>
 <script src="catalog-data.js"></script>
+<script src="review-thumbs.js"></script>
 <script src="catalog-app.js"></script>
 </body>
 </html>
