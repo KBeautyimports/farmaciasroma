@@ -715,7 +715,15 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* fills the screen regardless of the tablet's exact aspect ratio, cropping rather than letterboxing */
+    /* "contain" (not "cover") — the video is scaled to fit by whichever
+       dimension is the limiting one, with no cropping at all. Since the
+       tablet screen is proportionally wider than the video's own aspect
+       ratio, that means it scales to the screen's full HEIGHT and
+       letterboxes left/right, instead of filling the width and cropping
+       the top/bottom off the frame. The empty side bars show the
+       screensaver's own cream/sage gradient behind the video, so they
+       read as intentional rather than as empty space. */
+    object-fit: contain;
   }
   .idle-screensaver-fallback { position: relative; z-index: 1; text-align: center; padding: 0 24px; }
   .idle-screensaver-logo { max-width: 180px; margin-bottom: 16px; opacity: 0.9; }
