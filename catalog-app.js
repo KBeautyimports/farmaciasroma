@@ -1344,7 +1344,7 @@ function updateIngCount() { updateIngDDStyles(); updateTypeDDStyles(); }
 // ══════════════════════════════════════════════════════════════════════
 const IDLE_WARNING_MS = 60000;      // show "¿Sigues ahí?" after this many ms of no clicks (default 60s)
 const IDLE_RESET_MS = 10000;        // then reset to home after this many more ms (default 10s)
-const IDLE_VIDEO_URL = "";          // e.g. "https://kbeautyimports.com/videos/attract-loop.mp4" — leave blank for logo fallback
+const IDLE_VIDEO_URL = "https://kbeautyimports.github.io/farmaciasroma/videos/attract-loop.mp4"; // leave blank ("") to fall back to the logo screen instead
 
 let idleWarnTimer = null;
 let idleResetTimer = null;
