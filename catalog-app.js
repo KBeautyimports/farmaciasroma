@@ -357,7 +357,7 @@ function switchView(view) {
   // the quiz/results flow so quiz options start near the top of the screen
   // instead of below the fold. Still shown for the catalog and brands views.
   const headerEl = document.querySelector('header');
-  if (headerEl) headerEl.style.display = (view === 'quiz' || view === 'results') ? 'none' : 'flex';
+  if (headerEl) headerEl.style.display = (view === 'quiz' || view === 'results') ? 'none' : 'grid';
   
   document.getElementById('nav-catalog').className = 'nav-item' + (view === 'catalog' ? ' active' : '');
   document.getElementById('nav-quiz').className = 'nav-item' + (view === 'quiz' || view === 'results' ? ' active' : '');
