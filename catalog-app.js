@@ -264,12 +264,29 @@ function tiktokVideoId(url) {
   return m ? m[1] : '';
 }
 
-// Builds the embed markup shared by both the (now-unused on QR) inline
-// embed and the tablet's full-screen player.
+// Builds the embed markup for the tablet's full-screen player.
+//
+// TikTok uses its official Embed Player v1 (a plain iframe:
+// tiktok.com/player/v1/{video_id}) instead of the blockquote+embed.js
+// widget. The widget relies on embed.js re-scanning the page for new
+// blockquotes every time it's (re-)loaded — reliable for a single
+// static embed on a normal page, but on a kiosk that swaps in a
+// DIFFERENT video's blockquote over and over in the same session, that
+// re-scan is exactly the flaky part: some videos hydrate into a
+// player, others just sit there doing nothing when tapped, with no
+// error and nothing to retry. The player iframe has none of that —
+// it's just a URL, no script, no page-scan timing to get unlucky with.
+// Instagram has no equivalent public iframe player, so it keeps the
+// blockquote approach (and Instagram isn't in the catalog data yet).
 function buildEmbedHtml(platform, url) {
   if (platform === 'tiktok') {
     const vid = tiktokVideoId(url);
-    return `<blockquote class="tiktok-embed" cite="${url}"${vid ? ` data-video-id="${vid}"` : ''} style="max-width:325px;min-width:280px;"><section></section></blockquote>`;
+    if (vid) {
+      return `<iframe src="https://www.tiktok.com/player/v1/${vid}?music_info=1&description=1&rel=0" style="width:min(325px,88vw);aspect-ratio:9/16;max-height:82vh;border:none;border-radius:14px;background:#000;" allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="TikTok video"></iframe>`;
+    }
+    // Couldn't parse a video ID from the URL (e.g. a profile link, not a
+    // single-video link) — fall back to the old widget rather than show nothing.
+    return `<blockquote class="tiktok-embed" cite="${url}" style="max-width:325px;min-width:280px;"><section></section></blockquote>`;
   }
   return `<blockquote class="instagram-media" data-instgrm-permalink="${url}" style="width:100%;max-width:400px;margin:0;"></blockquote>`;
 }
@@ -284,7 +301,9 @@ function showReview(platform, url) {
   if (!overlay) return; // qr.html has no player overlay — shouldn't be reachable there
   embed.innerHTML = buildEmbedHtml(platform, url);
   overlay.classList.add('open');
-  loadEmbedScript(platform);
+  // The TikTok player iframe is self-contained — no script needed. Only
+  // the Instagram blockquote fallback still needs its widget script.
+  if (platform !== 'tiktok' || !tiktokVideoId(url)) loadEmbedScript(platform);
   if (typeof pauseIdleForVideo === 'function') pauseIdleForVideo();
 }
 
