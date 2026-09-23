@@ -249,8 +249,11 @@ function renderReviews(reviews) {
     const bgStyle = info?.thumb
       ? ` style="background-image:linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0.05) 55%), url('${info.thumb}')"`
       : '';
+    // The platform icon is only shown as a fallback when there's no real
+    // thumbnail to display — once a photo loads, the icon just clutters it.
+    const iconHtml = info?.thumb ? '' : `<div class="review-tile-play">${icon}</div>`;
     const inner = `
-      <div class="review-tile-play">${icon}</div>
+      ${iconHtml}
       <div class="review-tile-handle">${handle}</div>`;
     if (KIOSK_MODE) {
       return `<div class="review-tile" onclick="showReview('${r.platform}', '${r.url}')"${bgStyle}>${inner}</div>`;
