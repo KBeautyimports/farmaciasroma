@@ -872,9 +872,16 @@ function scoreProduct(p, skin, isSensitive, concerns) {
   });
 
   // ── Brand priority boost ──
-  // Small tiebreaker boost for priority brands. Not enough to override
-  // a clearly better product, but breaks ties in favour of AXIS-Y and Herbloom.
-  if (p.brand === 'AXIS-Y' || p.brand === 'Herbloom') score += 3;
+  // Herbloom's sunscreen gets a tiebreaker specifically against the OTHER
+  // "Todo Tipo" (universal-fit) sunscreens it's normally tied with at the
+  // base +6 skin-type score (SKIN1004's Sun Stick, HaruHaru's Airyfit) —
+  // +4 clears that tie comfortably. It's deliberately NOT enough to beat
+  // a sunscreen that's an actual exact skin-type match for what someone
+  // picked (worth +10 on its own — AXIS-Y for Piel Sensible, SKIN1004's
+  // Water-Fit for Piel Seca/Normal), so Herbloom wins the "no sunscreen
+  // here is specifically a better fit" case without becoming the answer
+  // regardless of what people choose in the quiz.
+  if (p.brand === 'Herbloom' && p.types.includes('Protector Solar')) score += 4;
 
   // ── Brand de-prioritisation ──
   // Tony Moly products are lifestyle/impulse items — deprioritise in routine builder.
