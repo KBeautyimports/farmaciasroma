@@ -576,35 +576,48 @@
     scrollbar-width: thin;
   }
   .review-tile {
+    position: relative;
     flex: 0 0 auto;
     width: 86px;
     height: 128px;
     border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    overflow: hidden;
     cursor: pointer;
     text-decoration: none;
     color: var(--white);
-    background: linear-gradient(155deg, #1a1a1a, #000);
+    background-color: #141414;
+    background-image: linear-gradient(155deg, #1a1a1a, #000);
+    /* "contain" shows the whole thumbnail with no cropping — TikTok's
+       portrait photos are taller than these tiles, so this letterboxes
+       with the dark background-color above/below rather than cutting
+       off the top or bottom of the shot. */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     border: none;
     transition: transform 0.15s;
   }
   .review-tile:active { transform: scale(0.96); }
+  /* Once a real thumbnail loads (see loadReviewThumbnails), it's applied
+     as this same background — a dark gradient is baked into that inline
+     style so the play icon and handle stay readable over any photo. */
   .review-tile-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
     width: 34px; height: 34px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.16);
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(2px);
     display: flex; align-items: center; justify-content: center;
     font-size: 1.05rem;
   }
   .review-tile-handle {
+    position: absolute;
+    left: 8px; right: 8px; bottom: 8px;
     font-size: 0.66rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.85);
-    max-width: 76px;
+    color: rgba(255,255,255,0.9);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -742,22 +755,23 @@
   }
 
   /* ── QUIZ SECTION ── */
-  #quiz-section { display: none; padding: 20px 16px 40px; }
+  #quiz-section { display: none; padding: 14px 16px 40px; }
   .quiz-card {
     background: var(--white);
     border-radius: 20px;
-    padding: 28px 20px;
+    padding: 18px 20px 24px;
     box-shadow: var(--shadow);
     max-width: 500px;
     margin: 0 auto;
   }
-  .quiz-header { text-align: center; margin-bottom: 28px; }
-  .quiz-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; margin-bottom: 6px; }
-  .quiz-header p { font-size: 0.83rem; color: var(--mid); line-height: 1.5; }
+  .quiz-header { text-align: center; margin-bottom: 14px; }
+  .quiz-header .quiz-header-emoji { font-size: 1.4rem; margin-bottom: 2px; }
+  .quiz-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 4px; }
+  .quiz-header p { font-size: 0.78rem; color: var(--mid); line-height: 1.4; }
   .quiz-step { display: none; }
   .quiz-step.active { display: block; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
-  .step-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+  .step-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; }
   .step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--light); transition: background 0.2s; }
   .step-dot.active { background: var(--rose); }
   .step-dot.done { background: var(--sage); }
@@ -784,42 +798,41 @@
   .opt-desc { font-size: 0.76rem; color: var(--mid); display: block; margin-top: 2px; }
   .quiz-multi-note { font-size: 0.74rem; color: var(--mid); text-align: center; margin-top: 8px; }
 
-  /* Sensitive skin toggle on step 1 */
-  .sensitive-toggle {
+  /* Step label + sensitive-skin checkbox share one compact row */
+  .step-label-row {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-top: 16px;
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 2px solid var(--light);
-    background: var(--cream);
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  #step-label { font-size: 0.72rem; color: var(--mid); }
+  .sensitive-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     cursor: pointer;
-    transition: all 0.18s;
     user-select: none;
   }
-  .sensitive-toggle:hover { border-color: var(--rose-light); background: #fdf6f4; }
-  .sensitive-toggle.checked { border-color: var(--rose); background: #fdf2f0; }
   .sensitive-checkbox {
-    width: 24px;
-    min-width: 24px;
-    height: 24px;
-    border-radius: 6px;
+    width: 18px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 5px;
     border: 2px solid var(--light);
     background: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
+    font-size: 0.68rem;
     transition: all 0.18s;
   }
   .sensitive-toggle.checked .sensitive-checkbox {
     background: var(--rose);
     border-color: var(--rose);
   }
-  .sensitive-toggle-text { flex: 1; }
-  .sensitive-label { display: block; font-size: 0.88rem; font-weight: 500; color: var(--charcoal); }
-  .sensitive-desc { display: block; font-size: 0.74rem; color: var(--mid); margin-top: 2px; }
+  .sensitive-label { font-size: 0.76rem; font-weight: 500; color: var(--charcoal); }
   .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; }
   .quiz-nav-top { margin-top: 14px; margin-bottom: 16px; }
   .quiz-back {
