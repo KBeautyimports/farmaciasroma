@@ -13,8 +13,39 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-5XXGXDE227');
+  // Which tablet is this? Set it once per device by opening the kiosk URL with
+  // ?store=roma-polanco  — it is remembered on the device after that.
+  var KUTIE_STORE = (function () {
+    try {
+      var s = (new URLSearchParams(location.search).get('store') || '')
+        .toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
+      if (s) { localStorage.setItem('kutie_store', s); return s; }
+      return localStorage.getItem('kutie_store') || 'unknown';
+    } catch (e) { return 'unknown'; }
+  })();
+
+  gtag('config', 'G-5XXGXDE227', {
+    entry: 'tablet',                       // lets reports split tablet vs. QR traffic
+    store_id: KUTIE_STORE,                  // lets reports split by store
+    allow_google_signals: false,            // no Google advertising features
+    allow_ad_personalization_signals: false
+  });
 </script>
+<style>
+  /* Aviso de Privacidad — short notice + link (hero and results screens) */
+  .privacy-note, .hero p.privacy-note { margin: 18px auto 0; max-width: 34rem; padding: 0 12px; text-align: center; font-size: 0.78rem; line-height: 1.5; color: var(--mid); }
+  .privacy-note a { display: inline-block; padding: 6px 2px; color: var(--rose-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  html.kiosk .privacy-note { margin-top: 24px; font-size: 1rem; }
+  html.kiosk .privacy-note a { padding: 12px 6px; }
+</style>
+<style>
+  /* Aviso de Privacidad overlay (tablet only — keeps the kiosk on this page) */
+  .privacy-overlay { display: none; position: fixed; inset: 0; background: rgba(30,26,24,0.55); z-index: 450; align-items: center; justify-content: center; padding: 24px; }
+  .privacy-overlay.open { display: flex; }
+  .privacy-sheet { position: relative; width: min(720px, 100%); height: min(1000px, 92vh); background: var(--white); border-radius: 24px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+  .privacy-sheet iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .privacy-close { position: absolute; top: 12px; right: 12px; z-index: 2; width: 52px; height: 52px; border: none; border-radius: 50%; background: var(--rose-dark); color: var(--white); font-size: 1.4rem; cursor: pointer; }
+</style>
 </head>
 <body>
 
@@ -50,6 +81,7 @@
   <p>K-Beauty seleccionado para cada tipo de piel.</p>
   <p class="hero-quiz-prompt">👇 Haz clic aquí para descubrir tu rutina 👇</p>
   <button class="hero-quiz-btn" onclick="showQuiz()">✨ Encuentra tu rutina ideal</button>
+  <p class="privacy-note">Solo registramos estadísticas de uso anónimas; no te pedimos datos personales. <a href="privacy.html" onclick="openPrivacy(); return false;">Aviso de Privacidad</a></p>
 </div>
 
 <!-- CATALOG SECTION -->
@@ -314,6 +346,7 @@
     <button class="retake-btn" onclick="retakeQuiz()">↺ Repetir el test de piel</button>
     <button class="browse-all-btn" onclick="switchView('catalog'); resetFilters();">Ver catálogo completo</button>
   </div>
+  <p class="privacy-note">Solo registramos estadísticas de uso anónimas; no te pedimos datos personales. <a href="privacy.html" onclick="openPrivacy(); return false;">Aviso de Privacidad</a></p>
 </div>
 
 </div><!-- /main-content -->
@@ -384,9 +417,37 @@
   <div class="idle-screensaver-hint">✨ Toca la pantalla para comenzar</div>
 </div>
 
+<!-- AVISO DE PRIVACIDAD (opens in-page so the kiosk never navigates away) -->
+<div class="privacy-overlay" id="privacy-overlay" onclick="if(event.target===this)closePrivacy()">
+  <div class="privacy-sheet">
+    <button class="privacy-close" onclick="closePrivacy()" aria-label="Cerrar aviso de privacidad">✕</button>
+    <iframe id="privacy-frame" title="Aviso de Privacidad" data-src="privacy.html?embed=1"></iframe>
+  </div>
+</div>
+
 <script>const KIOSK_MODE = true;</script>
 <script src="catalog-data.js"></script>
 <script src="review-thumbs.js"></script>
 <script src="catalog-app.js"></script>
+<script src="analytics.js"></script>
+<script>
+  // Aviso de Privacidad overlay controls
+  function openPrivacy() {
+    var f = document.getElementById('privacy-frame');
+    if (!f.getAttribute('src')) f.setAttribute('src', f.getAttribute('data-src'));
+    document.getElementById('privacy-overlay').classList.add('open');
+  }
+  function closePrivacy() {
+    document.getElementById('privacy-overlay').classList.remove('open');
+  }
+  // When the kiosk goes idle (screensaver), close the notice so the next shopper starts clean.
+  (function () {
+    var saver = document.getElementById('idle-screensaver');
+    if (!saver || !window.MutationObserver) return;
+    new MutationObserver(function () {
+      if (saver.classList.contains('open')) closePrivacy();
+    }).observe(saver, { attributes: true, attributeFilter: ['class'] });
+  })();
+</script>
 </body>
 </html>

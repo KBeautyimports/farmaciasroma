@@ -13,8 +13,28 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-5XXGXDE227');
+  // Which store's QR code was scanned? Print each store's QR with ?store=roma-polanco
+  var KUTIE_STORE = (function () {
+    try {
+      return (new URLSearchParams(location.search).get('store') || 'unknown')
+        .toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) || 'unknown';
+    } catch (e) { return 'unknown'; }
+  })();
+
+  gtag('config', 'G-5XXGXDE227', {
+    entry: 'qr',                       // lets reports split tablet vs. QR traffic
+    store_id: KUTIE_STORE,                  // lets reports split by store
+    allow_google_signals: false,            // no Google advertising features
+    allow_ad_personalization_signals: false
+  });
 </script>
+<style>
+  /* Aviso de Privacidad — short notice + link (hero and results screens) */
+  .privacy-note, .hero p.privacy-note { margin: 18px auto 0; max-width: 34rem; padding: 0 12px; text-align: center; font-size: 0.78rem; line-height: 1.5; color: var(--mid); }
+  .privacy-note a { display: inline-block; padding: 6px 2px; color: var(--rose-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  html.kiosk .privacy-note { margin-top: 24px; font-size: 1rem; }
+  html.kiosk .privacy-note a { padding: 12px 6px; }
+</style>
 </head>
 <body>
 
@@ -50,6 +70,7 @@
   <p>K-Beauty seleccionado para cada tipo de piel.</p>
   <p class="hero-quiz-prompt">👇 Haz clic aquí para descubrir tu rutina 👇</p>
   <button class="hero-quiz-btn" onclick="showQuiz()">✨ Encuentra tu rutina ideal</button>
+  <p class="privacy-note">Solo registramos estadísticas de uso anónimas; no te pedimos datos personales. <a href="privacy.html" target="_blank" rel="noopener">Aviso de Privacidad</a></p>
 </div>
 
 <!-- CATALOG SECTION -->
@@ -314,6 +335,7 @@
     <button class="retake-btn" onclick="retakeQuiz()">↺ Repetir el test de piel</button>
     <button class="browse-all-btn" onclick="switchView('catalog'); resetFilters();">Ver catálogo completo</button>
   </div>
+  <p class="privacy-note">Solo registramos estadísticas de uso anónimas; no te pedimos datos personales. <a href="privacy.html" target="_blank" rel="noopener">Aviso de Privacidad</a></p>
 </div>
 
 </div><!-- /main-content -->
@@ -380,5 +402,6 @@
 <script src="catalog-data.js"></script>
 <script src="review-thumbs.js"></script>
 <script src="catalog-app.js"></script>
+<script src="analytics.js"></script>
 </body>
 </html>
