@@ -1440,4 +1440,6 @@ function resumeIdleAfterVideo() {
 buildIngChips();
 renderCatalog(PRODUCTS);
 renderBrands();
+// Tablet-only styling hook (see the KIOSK block at the end of catalog-style.css)
+if (KIOSK_MODE) document.documentElement.classList.add('kiosk');
 if (KIOSK_MODE) scheduleIdleWarning();
