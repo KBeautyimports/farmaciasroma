@@ -32,11 +32,10 @@
   });
 </script>
 <style>
-  /* Aviso de Privacidad — short notice + link (hero and results screens) */
-  .privacy-note, .hero p.privacy-note { margin: 18px auto 0; max-width: 34rem; padding: 0 12px; text-align: center; font-size: 0.78rem; line-height: 1.5; color: var(--mid); }
-  .privacy-note a { display: inline-block; padding: 6px 2px; color: var(--rose-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-  html.kiosk .privacy-note { margin-top: 24px; font-size: 1rem; }
-  html.kiosk .privacy-note a { padding: 12px 6px; }
+  /* Aviso de Privacidad — small link at the very bottom of the catalog */
+  .privacy-footer { margin: 28px 0 8px; text-align: center; font-size: 0.75rem; }
+  .privacy-footer a { display: inline-block; padding: 8px 10px; color: var(--mid); text-decoration: underline; text-underline-offset: 3px; }
+  html.kiosk .privacy-footer a { font-size: 0.9rem; padding: 14px 16px; }
 </style>
 <style>
   /* Aviso de Privacidad overlay (tablet only — keeps the kiosk on this page) */
@@ -81,7 +80,6 @@
   <p>K-Beauty seleccionado para cada tipo de piel.</p>
   <p class="hero-quiz-prompt">👇 Haz clic aquí para descubrir tu rutina 👇</p>
   <button class="hero-quiz-btn" onclick="showQuiz()">✨ Encuentra tu rutina ideal</button>
-  <p class="privacy-note">Solo registramos estadísticas de uso anónimas; no te pedimos datos personales. <a href="privacy.html" onclick="openPrivacy(); return false;">Aviso de Privacidad</a></p>
 </div>
 
 <!-- CATALOG SECTION -->
@@ -176,6 +174,7 @@
     <p>Prueba con otros filtros</p>
     <button class="filter-reset" style="margin-top:12px;font-size:0.84rem;" onclick="resetFilters()">Ver todos los productos</button>
   </div>
+  <p class="privacy-footer"><a href="privacy.html" onclick="openPrivacy(); return false;">Aviso de Privacidad</a></p>
 </div>
 
 <!-- BRANDS SECTION -->
@@ -346,7 +345,6 @@
     <button class="retake-btn" onclick="retakeQuiz()">↺ Repetir el test de piel</button>
     <button class="browse-all-btn" onclick="switchView('catalog'); resetFilters();">Ver catálogo completo</button>
   </div>
-  <p class="privacy-note">Solo registramos estadísticas de uso anónimas; no te pedimos datos personales. <a href="privacy.html" onclick="openPrivacy(); return false;">Aviso de Privacidad</a></p>
 </div>
 
 </div><!-- /main-content -->
